@@ -1,10 +1,39 @@
-<h1>SWE Gruppe 3</h1>
-
-<nav>
-  <button class="btn" routerLink="/home">Home</button>
-  <button class="btn" routerLink="/suchen">Suchen</button>
-  <button class="btn" routerLink="/anlegen">Anlegen</button>
-  <button class="btn" routerLink="/login">Login</button>
-</nav>
+<div class="navbar bg-base-100 shadow-sm">
+  <!-- Linke Ecke -->
+  <div class="flex-1">
+    <a class="btn btn-ghost text-xl" routerLink="/home">Gruppe 3</a>
+  </div>
+  <!-- Mitte -->
+  <div class="flex-none">
+    <div class="flex justify-center gap-2">
+      <button class="btn btn-ghost text-l" routerLink="/suchen">Suchen</button>
+      <button class="btn btn-ghost text-l" routerLink="/anlegen">
+        Anlegen
+      </button>
+    </div>
+  </div>
+  <!-- Rechte Ecke -->
+  <div class="flex-1 flex justify-end">
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+        <div class="w-10 rounded-full">
+          <img
+            alt="Tailwind CSS Navbar component"
+            src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+          />
+        </div>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+      >
+        <li>
+          <a class="justify-between"> Profile </a>
+        </li>
+        <li><a>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 <router-outlet></router-outlet>
