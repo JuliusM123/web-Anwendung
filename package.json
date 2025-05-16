@@ -1,5 +1,5 @@
 {
-  "name": "weg-anwendung",
+  "name": "web-anwendung",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

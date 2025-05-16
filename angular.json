@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "weg-Anwendung": {
+    "web-Anwendung": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/weg-anwendung",
+            "outputPath": "dist/web-anwendung",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -59,10 +59,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "weg-Anwendung:build:production"
+              "buildTarget": "web-Anwendung:build:production"
             },
             "development": {
-              "buildTarget": "weg-Anwendung:build:development"
+              "buildTarget": "web-Anwendung:build:development"
             }
           },
           "defaultConfiguration": "development"
