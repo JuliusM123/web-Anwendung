@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { SucheComponent } from "./suche/suche.component";
+import { AnlegenComponent } from "./anlegen/anlegen.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [SucheComponent, AnlegenComponent, RouterOutlet, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'weg-Anwendung';
+  title = 'web-Anwendung';
 }
