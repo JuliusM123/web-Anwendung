@@ -1,9 +1,7 @@
 <div class="navbar bg-base-100 shadow-sm fixed top-0 left-0 w-full z-50">
-  <!-- Linke Ecke -->
   <div class="flex-1">
     <a class="btn btn-ghost text-xl" routerLink="/home">Gruppe 3</a>
   </div>
-  <!-- Mitte -->
   <div class="flex-none">
     <div class="flex justify-center gap-2">
       <button class="btn btn-ghost text-l" routerLink="/suchen">Suchen</button>
@@ -12,12 +10,9 @@
       </button>
     </div>
   </div>
-  <!-- Rechte Ecke -->
   <div class="flex-1 flex justify-end">
     <button class="btn btn-ghost text-l" routerLink="/login">Login</button>
   </div>
 </div>
 
-<div class="pt-16">
-  <router-outlet></router-outlet>
-</div>
+<router-outlet></router-outlet>
