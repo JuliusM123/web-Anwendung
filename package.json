@@ -9,8 +9,8 @@
     "test": "ng test",
     "e2e": "ng e2e",
     "lint": "ng lint",
-    "format": "prettier --write \"**/*.(ts|js|json|html|css|scss)\"",
-    "format:check": "prettier --check \"**/*.(ts|js|json|html|css|scss)\""
+    "prettier": "prettier --write \"**/*.(ts|js|json|html|css|scss)\"",
+    "prettier:check": "prettier --check \"**/*.(ts|js|json|html|css|scss)\""
   },
   "private": true,
   "dependencies": {
