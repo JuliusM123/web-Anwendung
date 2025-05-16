@@ -89,6 +89,17 @@
             ],
             "scripts": []
           }
+        },
+        "e2e": {
+          "builder": "playwright-ng-schematics:playwright",
+          "options": {
+            "devServerTarget": "web-Anwendung:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "web-Anwendung:serve:production"
+            }
+          }
         }
       }
     }
