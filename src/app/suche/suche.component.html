@@ -5,20 +5,57 @@
     <legend class="fieldset-legend">Page details</legend>
 
     <label class="label" for="title">Titel</label>
-    <input id="title" type="text" class="input" placeholder="My awesome page" />
+    <input id="title" type="text" class="input" placeholder="Titel eingeben" />
 
     <label class="label" for="slug">ISBN Nummer</label>
-    <input id="slug" type="text" class="input" placeholder="my-awesome-page" />
+    <input
+      id="slug"
+      type="text"
+      class="input"
+      placeholder="ISBN Nummer eingeben"
+    />
 
-    <label class="label" for="author">Rating</label>
-    <input id="author" type="text" class="input" placeholder="Choose" />
+    <div class="w-full max-w-xs">
+      <label class="label" for="slug">Rating</label>
 
-    <label class="label" for="author">Buchart</label>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value="25"
+        class="range"
+        step="25"
+      />
+
+      <div class="flex justify-between px-2.5 mt-2 text-xs">
+        <span>|</span>
+        <span>|</span>
+        <span>|</span>
+        <span>|</span>
+        <span>|</span>
+      </div>
+      <div class="flex justify-between px-2.5 mt-2 text-xs">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+      </div>
+    </div>
+
+    <label class="label" for="Buchart">Buchart</label>
     <input
       id="author"
       type="text"
       class="input"
       placeholder="Druckausgabe, Kindel"
     />
+    <div class="flex items-center my-4">
+      <label class="label mr-4" for="Lieferbar">Lieferbar</label>
+      <div class="flex justify-center flex-1">
+        <input type="radio" name="radio-1" class="radio" checked="checked" />
+        <input type="radio" name="radio-1" class="radio ml-4" />
+      </div>
+    </div>
   </fieldset>
 </div>
