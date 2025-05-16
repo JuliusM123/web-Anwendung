@@ -60,13 +60,19 @@
       </div>
     </div>
 
-    <label class="label" for="Buchart">Buchart</label>
-    <input
-      id="author"
-      type="text"
-      class="input"
-      placeholder="Druckausgabe, Kindel"
-    />
+    <div class="flex items-center my-4">
+      <label class="label mr-4 min-w-[80px]" for="Buchart">Buchart</label>
+      <div class="flex justify-center flex-1 gap-4">
+        <label class="flex items-center">
+          <input type="checkbox" class="checkbox checkbox-lg mr-2" />
+          Druckausgabe
+        </label>
+        <label class="flex items-center">
+          <input type="checkbox" class="checkbox checkbox-lg mr-2" />
+          Kindle
+        </label>
+      </div>
+    </div>
     <div class="flex items-center my-4">
       <label class="label mr-4" for="Lieferbar">Lieferbar</label>
       <div class="flex justify-center flex-1">
