@@ -4,7 +4,7 @@ import { AnlegenComponent } from './anlegen/anlegen.component';
 import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
-    {path: 'suchen', component: SucheComponent},
-    {path: 'anlegen', component: AnlegenComponent},
-    {path: 'login', component: LoginComponent},
+    { path: 'suchen', component: SucheComponent },
+    { path: 'anlegen', component: AnlegenComponent },
+    { path: 'login', component: LoginComponent },
 ];
