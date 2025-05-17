@@ -1,6 +1,17 @@
-<div class="flex items-center justify-center min-h-screen">
+<div
+  class="flex items-center justify-center min-h-screen relative"
+  style="
+    background-image: url('assets/library.svg');
+    background-size: cover;
+    background-position: center;
+  "
+>
+  <!-- Gradient-Overlay: von transparent oben zu schwarz unten -->
+  <div
+    class="absolute inset-0 bg-gradient-to-b from-transparent to-black pointer-events-none"
+  ></div>
   <fieldset
-    class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
+    class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 relative z-10"
   >
     <legend class="fieldset-legend">Page details</legend>
 
@@ -17,7 +28,6 @@
 
     <div class="w-full max-w-xs">
       <label class="label" for="slug">Rating</label>
-
       <input
         type="range"
         min="0"
@@ -26,7 +36,6 @@
         class="range"
         step="25"
       />
-
       <div class="flex justify-between px-2.5 mt-2 text-xs">
         <span>|</span>
         <span>|</span>
