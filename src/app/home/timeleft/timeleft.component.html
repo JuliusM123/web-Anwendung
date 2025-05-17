@@ -1,0 +1,67 @@
+<div class="countdown-wrapper fixed bottom-8 left-1/2 -translate-x-1/2">
+  @if (!isTimeUp) {
+    <div
+      class="grid auto-cols-auto grid-flow-col gap-5 text-center justify-center"
+    >
+      <div
+        class="bg-neutral rounded-box text-neutral-content flex flex-col p-2"
+      >
+        <span class="countdown font-mono text-5xl">
+          <span
+            [style.--value]="days"
+            aria-live="polite"
+            [attr.aria-label]="days + ' days'"
+            >{{ days }}</span
+          >
+        </span>
+        days
+      </div>
+
+      <div
+        class="bg-neutral rounded-box text-neutral-content flex flex-col p-2"
+      >
+        <span class="countdown font-mono text-5xl">
+          <span
+            [style.--value]="hours"
+            aria-live="polite"
+            [attr.aria-label]="hours + ' hours'"
+            >{{ hours }}</span
+          >
+        </span>
+        hours
+      </div>
+
+      <div
+        class="bg-neutral rounded-box text-neutral-content flex flex-col p-2"
+      >
+        <span class="countdown font-mono text-5xl">
+          <span
+            [style.--value]="minutes"
+            aria-live="polite"
+            [attr.aria-label]="minutes + ' minutes'"
+            >{{ minutes }}</span
+          >
+        </span>
+        min
+      </div>
+
+      <div
+        class="bg-neutral rounded-box text-neutral-content flex flex-col p-2"
+      >
+        <span class="countdown font-mono text-5xl">
+          <span
+            [style.--value]="seconds"
+            aria-live="polite"
+            [attr.aria-label]="seconds + ' seconds'"
+            >{{ seconds }}</span
+          >
+        </span>
+        sec
+      </div>
+    </div>
+  } @else {
+    <div class="time-up-message text-3xl font-extrabold">
+      {{ timeUpMessage }}
+    </div>
+  }
+</div>
