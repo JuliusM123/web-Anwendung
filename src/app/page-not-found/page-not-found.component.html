@@ -1,11 +1,12 @@
-<div
-  class="hero min-h-screen"
-  style="background-image: url('assets/error-404.svg')"
->
-  <div class="hero-overlay"></div>
-  <div class="hero-content text-neutral-content text-center">
-    <div class="max-w-md">
-      <button class="btn" routerLink="../home">Return to Home</button>
-    </div>
+<div class="hero min-h-screen flex items-center justify-center">
+  <div
+    class="absolute inset-0 flex items-center justify-center pointer-events-none"
+    style="z-index: 1"
+  >
+    <img
+      src="assets/error-404.svg"
+      alt="404"
+      class="w-2/3 max-w-2xl opacity-80"
+    />
   </div>
 </div>
