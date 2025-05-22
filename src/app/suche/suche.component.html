@@ -6,43 +6,51 @@
     background-position: center;
   "
 >
-  <!-- Gradient-Overlay: von transparent oben zu schwarz unten -->
+  <!-- Gradient-Overlay -->
   <div
     class="absolute inset-0 bg-gradient-to-b from-transparent to-black pointer-events-none"
   ></div>
+
   <fieldset
     class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 relative z-10"
   >
     <legend class="fieldset-legend">Page details</legend>
 
+    <!-- Titel -->
     <label class="label" for="title">Titel</label>
-    <input id="title" type="text" class="input" placeholder="Titel eingeben" />
-
-    <label class="label" for="slug">ISBN Nummer</label>
     <input
-      id="slug"
+      id="title"
+      type="text"
+      class="input"
+      placeholder="Titel eingeben"
+      [(ngModel)]="titel"
+      name="titel"
+    />
+
+    <!-- ISBN -->
+    <label class="label" for="isbn">ISBN Nummer</label>
+    <input
+      id="isbn"
       type="text"
       class="input"
       placeholder="ISBN Nummer eingeben"
+      [(ngModel)]="isbn"
+      name="isbn"
     />
 
+    <!-- Rating -->
     <div class="w-full max-w-xs">
-      <label class="label" for="slug">Rating</label>
+      <label class="label" for="rating">Rating</label>
       <input
+        id="rating"
         type="range"
-        min="0"
-        max="100"
-        value="25"
+        min="1"
+        max="5"
+        step="1"
         class="range"
-        step="25"
+        [(ngModel)]="rating"
+        name="rating"
       />
-      <div class="flex justify-between px-2.5 mt-2 text-xs">
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-      </div>
       <div class="flex justify-between px-2.5 mt-2 text-xs">
         <span>1</span>
         <span>2</span>
@@ -52,25 +60,60 @@
       </div>
     </div>
 
-    <div class="flex items-center my-4">
-      <label class="label mr-4 min-w-[80px]" for="Buchart">Buchart</label>
-      <div class="flex justify-center flex-1 gap-4">
-        <label class="flex items-center">
-          <input type="checkbox" class="checkbox checkbox-lg mr-2" />
-          Druckausgabe
-        </label>
-        <label class="flex items-center">
-          <input type="checkbox" class="checkbox checkbox-lg mr-2" />
-          Kindle
-        </label>
-      </div>
-    </div>
+    <!-- Buchart -->
+    <label class="label mt-4" for="buchart">Buchart</label>
+    <select
+      id="buchart"
+      class="select select-bordered w-full"
+      [(ngModel)]="buchart"
+      name="buchart"
+    >
+      <option value="">Bitte wählen</option>
+      <option value="EPUB">EPUB</option>
+      <option value="HARDCOVER">Hardcover</option>
+      <option value="PAPERBACK">Paperback</option>
+    </select>
+
+    <!-- Lieferbar -->
     <div class="flex items-center my-4">
       <label class="label mr-4" for="Lieferbar">Lieferbar</label>
-      <div class="flex justify-center flex-1">
-        <input type="radio" name="radio-1" class="radio" checked="checked" />
-        <input type="radio" name="radio-1" class="radio ml-4" />
+      <div class="flex flex-col items-center flex-1">
+        <div class="flex justify-center gap-8 mb-1">
+          <input
+            type="radio"
+            name="lieferbar"
+            [value]="true"
+            class="radio"
+            [(ngModel)]="lieferbar"
+          />
+          <input
+            type="radio"
+            name="lieferbar"
+            [value]="false"
+            class="radio"
+            [(ngModel)]="lieferbar"
+          />
+        </div>
+        <div class="flex justify-center gap-10 text-sm">
+          <span>Ja</span>
+          <span>Nein</span>
+        </div>
       </div>
     </div>
+
+    <!-- Button -->
+    <div class="mt-4 flex justify-center z-10 relative">
+      <button
+        class="btn btn-primary"
+        (click)="suchen(titel, isbn, rating, buchart, lieferbar)"
+      >
+        Suchen
+      </button>
+      <!-- <button class="btn btn-primary" (click)="suchen()">Suchen</button> -->
+    </div>
+    <div class="mt-8 text-black" *ngIf="buch">
+  <h2 class="text-xl font-bold mb-2">Buch gefunden:</h2>
+  <pre>{{ buch | json }}</pre>
+</div>
   </fieldset>
 </div>
