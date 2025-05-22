@@ -1,4 +1,4 @@
 export interface Titel {
-  titel: string;
-  untertitel?: string;
+    titel: string;
+    untertitel?: string;
 }
