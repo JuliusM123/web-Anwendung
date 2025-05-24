@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { Buch } from './buch.model';
 import { firstValueFrom } from 'rxjs';
@@ -46,7 +47,11 @@ export class SucheComponent {
 
             this.buch = response.content?.[0] ?? null;
         } catch (err) {
-            console.error('Fehler beim Suchen', err);
+            if (err instanceof HttpErrorResponse && err.status === 404) {
+                this.buch = null;
+            } else {
+                console.error('Fehler beim Suchen', err);
+            }
         }
     }
 }
