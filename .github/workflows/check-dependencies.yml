@@ -1,0 +1,29 @@
+name: Check Dependencies
+
+on:
+  schedule:
+    - cron: "0 8 * * 1" # jeden Montag um 08:00 Uhr UTC
+
+jobs:
+  check-dependencies:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: latest
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Check for outdated packages
+        run: npm outdated || echo "No outdated dependencies"
+
+      - name: Output outdated dependencies
+        run: |
+          echo "Outdated dependencies:"
+          npm outdated || true
