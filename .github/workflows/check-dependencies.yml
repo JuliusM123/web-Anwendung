@@ -1,5 +1,7 @@
-name: Check Dependencies
-
+name: Check Dependencies"
+permissions:
+  contents: read
+  pull-requests: write
 on:
   schedule:
     - cron: "0 8 * * 1" # jeden Montag um 08:00 Uhr UTC
