@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import type { Routes } from '@angular/router';
 import { SucheComponent } from './suche/suche.component';
 import { AnlegenComponent } from './anlegen/anlegen.component';
 import { LoginComponent } from './login/login.component';
