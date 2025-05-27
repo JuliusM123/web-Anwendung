@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-    selector: 'app-anlegen',
+    changeDetection: ChangeDetectionStrategy.OnPush,selector: 'app-anlegen',
     standalone: true,
     imports: [],
     templateUrl: './anlegen.component.html',

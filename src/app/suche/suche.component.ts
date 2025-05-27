@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
-import { Buch } from './buch.model';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import type { Buch } from './buch.model';
 import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 @Component({
-    selector: 'app-suche',
+    changeDetection: ChangeDetectionStrategy.OnPush,selector: 'app-suche',
     standalone: true,
     imports: [CommonModule, FormsModule],
     templateUrl: './suche.component.html',
