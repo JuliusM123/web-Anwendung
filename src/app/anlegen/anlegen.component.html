@@ -12,11 +12,21 @@
   <fieldset
     class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 relative z-10"
   >
-    <legend class="fieldset-legend">Page details</legend>
-
     <label class="label" for="title">Titel</label>
     <input id="title" type="text" class="input" placeholder="Titel eingeben" />
 
+    <label class="label" for="price">Preis</label>
+    <input
+      type="number"
+      class="input validator"
+      required
+      placeholder="Type a number between 1 to 100"
+      min="1"
+      max="100"
+      step="0.01"
+      title="Must be between be 1 to 100"
+    />
+    <p class="validator-hint">Must be between be 1 to 10</p>
     <label class="label" for="slug">ISBN Nummer</label>
     <input
       id="slug"
@@ -74,7 +84,7 @@
       <label class="label mr-4 min-w-[80px]" for="Buchart">Buchart</label>
       <fieldset class="fieldset">
         <select class="select">
-          <option disabled selected>Pick a browser</option>
+          <option disabled selected>Buchtyp auswählen</option>
           <option>Hardcover</option>
           <option>Paperback</option>
           <option>Epub</option>
@@ -94,7 +104,7 @@
       class="input validator"
       type="email"
       required
-      placeholder="mail@site.com"
+      placeholder="mail@seite.com"
     />
     <div class="validator-hint">Valide Email Adresse eingeben</div>
   </fieldset>
