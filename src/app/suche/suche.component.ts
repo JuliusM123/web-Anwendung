@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
-import { Buch } from './buch.model';
+import { Buch } from '../../types/buch.model';
 import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
