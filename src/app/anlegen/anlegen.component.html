@@ -31,6 +31,7 @@
       min="0"
       max="100"
       step="0.01"
+      [(ngModel)]="preis"
       title="Preis muss zwischen 0 und 100 liegen"
     />
     <label class="label" for="slug">ISBN Nummer</label>
@@ -39,6 +40,8 @@
       type="text"
       class="input"
       placeholder="ISBN Nummer eingeben"
+      [(ngModel)]="isbn"
+      name="isbn"
     />
 
     <div class="flex items-center my-4">
@@ -56,6 +59,8 @@
             name="rating-10"
             class="mask mask-star-2"
             aria-label="1 star"
+            [(ngModel)]="rating"
+            [value]="1"
           />
           <input
             type="radio"
@@ -63,24 +68,32 @@
             class="mask mask-star-2"
             aria-label="2 star"
             checked="checked"
+            [(ngModel)]="rating"
+            [value]="2"
           />
           <input
             type="radio"
             name="rating-10"
             class="mask mask-star-2"
             aria-label="3 star"
+            [(ngModel)]="rating"
+            [value]="3"
           />
           <input
             type="radio"
             name="rating-10"
             class="mask mask-star-2"
             aria-label="4 star"
+            [(ngModel)]="rating"
+            [value]="4"
           />
           <input
             type="radio"
             name="rating-10"
             class="mask mask-star-2"
             aria-label="5 star"
+            [(ngModel)]="rating"
+            [value]="5"
           />
         </div>
       </div>
@@ -89,30 +102,49 @@
     <div class="flex items-center my-4">
       <label class="label mr-4 min-w-[80px]" for="Buchart">Buchart</label>
       <fieldset class="fieldset">
-        <select class="select">
+        <select class="select" [(ngModel)]="art" name="art" id="buchart">
           <option disabled selected>Buchtyp auswählen</option>
-          <option>Hardcover</option>
-          <option>Paperback</option>
-          <option>Epub</option>
+          <option>HARDCOVER</option>
+          <option>PAPERBACK</option>
+          <option>EPUB</option>
         </select>
       </fieldset>
     </div>
     <div class="flex items-center my-4">
-      <label class="label mr-4" for="Lieferbar">Lieferbar</label>
-      <div class="flex justify-center flex-1">
-        <input type="radio" name="radio-1" class="radio" checked="checked" />
-        <input type="radio" name="radio-1" class="radio ml-4" />
+      <label class="label mr-4" for="lieferbarRadioGroup">Lieferbar</label>
+      <div class="flex justify-center flex-1" id="lieferbarRadioGroup">
+        <label class="mr-4 cursor-pointer label">
+          <span class="label-text mr-1">Ja</span>
+          <input
+            type="radio"
+            name="lieferbarRadio"
+            [value]="true"
+            class="radio"
+            [(ngModel)]="lieferbar"
+          />
+        </label>
+        <label class="cursor-pointer label">
+          <span class="label-text mr-1">Nein</span>
+          <input
+            type="radio"
+            name="lieferbarRadio"
+            [value]="false"
+            class="radio"
+            [(ngModel)]="lieferbar"
+          />
+        </label>
       </div>
     </div>
 
-    <label class="label" for="title">Homepage</label>
+    <label class="label" for="title">homepage</label>
     <input
       class="input validator"
-      type="email"
+      type="homepage"
       required
-      placeholder="mail@seite.com"
+      placeholder="Homepage eingeben"
+      [(ngModel)]="homepage"
+      name="homepage"
     />
-    <div class="validator-hint">Valide Email Adresse eingeben</div>
 
     <div class="mt-4 flex justify-center z-10 relative">
       <button class="btn btn-primary" (click)="buchSenden()">Anlegen</button>
