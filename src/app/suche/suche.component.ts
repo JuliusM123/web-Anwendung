@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
     styleUrls: ['./suche.component.css'],
 })
 export class SucheComponent {
-    private http = inject(HttpClient);
+    #http = inject(HttpClient);
     public buch: Buch | null | undefined;
     titel = '';
     isbn = '';
@@ -38,7 +38,7 @@ export class SucheComponent {
 
         try {
             const response: { content: Buch[] } = await firstValueFrom(
-                this.http.get<{ content: Buch[] }>(
+                this.#http.get<{ content: Buch[] }>(
                     'https://localhost:3000/rest',
                     { params },
                 ),

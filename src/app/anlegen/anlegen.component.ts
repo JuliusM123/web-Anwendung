@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
     styleUrl: './anlegen.component.css',
 })
 export class AnlegenComponent {
-    private http = inject(HttpClient);
+    #http = inject(HttpClient);
 
     titel = '';
     isbn = '';
@@ -58,9 +58,13 @@ export class AnlegenComponent {
         });
         try {
             const result = await firstValueFrom(
-                this.http.post<Buch>('https://localhost:3000/rest', dummyBuch, {
-                    headers,
-                }),
+                this.#http.post<Buch>(
+                    'https://localhost:3000/rest',
+                    dummyBuch,
+                    {
+                        headers,
+                    },
+                ),
             );
             console.log('Buch erfolgreich angelegt:', result);
         } catch (err) {

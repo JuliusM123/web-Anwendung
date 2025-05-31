@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
     styleUrls: ['./timeleft.component.css'],
 })
 export class TimeleftComponent implements OnInit, OnDestroy {
-    private targetDate: Date = new Date(2025, 6, 22, 12, 0, 0);
+    #targetDate: Date = new Date(2025, 6, 22, 12, 0, 0);
 
     protected days = 0;
     protected hours = 0;
@@ -20,25 +20,25 @@ export class TimeleftComponent implements OnInit, OnDestroy {
 
     protected timeUpMessage = 'The time is up';
 
-    private timerInterval: number | undefined;
+    #timerInterval: number | undefined;
 
     ngOnInit(): void {
-        this.updateTimeRemaining();
-        this.timerInterval = window.setInterval(() => {
-            this.updateTimeRemaining();
+        this.#updateTimeRemaining();
+        this.#timerInterval = window.setInterval(() => {
+            this.#updateTimeRemaining();
         }, 1000);
     }
 
     ngOnDestroy(): void {
-        if (this.timerInterval) {
-            window.clearInterval(this.timerInterval);
+        if (this.#timerInterval) {
+            window.clearInterval(this.#timerInterval);
         }
     }
 
-    private updateTimeRemaining(): void {
+    #updateTimeRemaining(): void {
         const currentTime = new Date();
         const differenceInMilliseconds =
-            this.targetDate.getTime() - currentTime.getTime();
+            this.#targetDate.getTime() - currentTime.getTime();
 
         if (differenceInMilliseconds <= 0) {
             this.days = 0;
@@ -46,8 +46,8 @@ export class TimeleftComponent implements OnInit, OnDestroy {
             this.minutes = 0;
             this.seconds = 0;
             this.isTimeUp = true;
-            if (this.timerInterval) {
-                clearInterval(this.timerInterval);
+            if (this.#timerInterval) {
+                clearInterval(this.#timerInterval);
             }
             return;
         }
