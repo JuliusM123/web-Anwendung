@@ -7,16 +7,19 @@ import {
 import { Buch } from '../../types/buch.model';
 import Decimal from 'decimal.js';
 import { firstValueFrom } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-anlegen',
     standalone: true,
-    imports: [],
+    imports: [FormsModule],
     templateUrl: './anlegen.component.html',
     styleUrl: './anlegen.component.css',
 })
 export class AnlegenComponent {
     private http = inject(HttpClient);
+
+    titel = '';
 
     private readonly token = 'VORLÄUFIGER JWT TOKEN -> mit dem Token ersetzen'; // bis Login steht manuell setzen
 
@@ -32,7 +35,7 @@ export class AnlegenComponent {
             homepage: 'https://post.rest',
             schlagwoerter: ['JAVASCRIPT', 'TYPESCRIPT'],
             titel: {
-                titel: 'Titelpost',
+                titel: this.titel,
                 untertitel: 'untertitelpost',
             },
             abbildung: [

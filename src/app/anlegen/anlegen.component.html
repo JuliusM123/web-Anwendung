@@ -13,20 +13,26 @@
     class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 relative z-10"
   >
     <label class="label" for="title">Titel</label>
-    <input id="title" type="text" class="input" placeholder="Titel eingeben" />
+    <input
+      id="title"
+      type="text"
+      class="input"
+      placeholder="Titel eingeben"
+      [(ngModel)]="titel"
+      name="titel"
+    />
 
     <label class="label" for="price">Preis</label>
     <input
       type="number"
       class="input validator"
       required
-      placeholder="Type a number between 1 to 100"
-      min="1"
+      placeholder="Preis muss zwischen 0 und 100 liegen"
+      min="0"
       max="100"
       step="0.01"
-      title="Must be between be 1 to 100"
+      title="Preis muss zwischen 0 und 100 liegen"
     />
-    <p class="validator-hint">Must be between be 1 to 10</p>
     <label class="label" for="slug">ISBN Nummer</label>
     <input
       id="slug"
