@@ -26,10 +26,11 @@ export class AnlegenComponent {
     homepage = '';
     art: BuchArt | '' = '';
     lieferbar = true;
-    erroer: HttpErrorResponse | null = null;
+    error: HttpErrorResponse | null = null;
+    responseStatus: number | null = null;
 
     readonly #token =
-        'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJDZ1NOdmJRTjRvVGxCZktEbEM1OGZMcFA5NF9JNEFVYlhueWxydkFGQ1lvIn0.eyJleHAiOjE3NDg3NjYzOTUsImlhdCI6MTc0ODc2NjA5NSwianRpIjoib25ydHJvOjM1MmQ2YTU4LWE5Y2EtNGUwNS1iOTA4LTAyZmYyYmQwMDUzYSIsImlzcyI6Imh0dHA6Ly9rZXljbG9hazo4MDgwL3JlYWxtcy9uZXN0IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImM1MTY2OGRhLTBiYTUtNDdlMS05YTljLTQzZGFmMzdhZmQyNSIsInR5cCI6IkJlYXJlciIsImF6cCI6Im5lc3QtY2xpZW50Iiwic2lkIjoiODk2MDE4NmUtYWI4Ny00NDRlLWEyZDktMjI0YTdlYjBhNDc3IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwczovL2xvY2FsaG9zdDozMDAwIiwiaHR0cHM6Ly9vYXV0aC5wc3Rtbi5pbyIsImh0dHBzOi8vYXV0bzozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiZGVmYXVsdC1yb2xlcy1uZXN0Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsibmVzdC1jbGllbnQiOnsicm9sZXMiOlsiYWRtaW4iXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6Ik5lc3QgQWRtaW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiIsImdpdmVuX25hbWUiOiJOZXN0IiwiZmFtaWx5X25hbWUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5AYWNtZS5jb20ifQ.zhYyUws0rvr-jcsKVWHZy-t0m5OulkTQ9urO1G-bBW8voGpJxN6mo9CrzgxsV8mMfmYG0PDwH3Y28huN4duH7yH0GyGKmsKOA0zzWaBDCrzj16hOP9f-yLuBEjxaRQM7AZSt-aPiY8k78IeKqmdyp2eIV3eVUdsCiwSZMJKnm54vW0LeiAPSP4mKMi1BYXtZVtYOV84LJhWevhX1rcBzHL95bt2nG3u1iF17GYfTQPxOsdrnMoMtGpnSCKDk-Viabn-d31E6BlxqnwDBLOXN9vFmhBOfSVff57wj4ZZ5MaYtPUU7kwgaX_IouRA64lNeOQfW0HZwiVnT3dttU-h52w'; // bis Login steht manuell setzen
+        'eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJDZ1NOdmJRTjRvVGxCZktEbEM1OGZMcFA5NF9JNEFVYlhueWxydkFGQ1lvIn0.eyJleHAiOjE3NDg3Njg3ODUsImlhdCI6MTc0ODc2ODQ4NSwianRpIjoib25ydHJvOjZkNGQzZGFhLTVmMmUtNDk0My04YWQxLTZiMGMzZGQzMTg4YiIsImlzcyI6Imh0dHA6Ly9rZXljbG9hazo4MDgwL3JlYWxtcy9uZXN0IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImM1MTY2OGRhLTBiYTUtNDdlMS05YTljLTQzZGFmMzdhZmQyNSIsInR5cCI6IkJlYXJlciIsImF6cCI6Im5lc3QtY2xpZW50Iiwic2lkIjoiY2VlNzViY2QtYTI5NS00NjFhLWJiMmQtZGZlNzZiNWYyYjZmIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwczovL2xvY2FsaG9zdDozMDAwIiwiaHR0cHM6Ly9vYXV0aC5wc3Rtbi5pbyIsImh0dHBzOi8vYXV0bzozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiZGVmYXVsdC1yb2xlcy1uZXN0Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsibmVzdC1jbGllbnQiOnsicm9sZXMiOlsiYWRtaW4iXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6Ik5lc3QgQWRtaW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiIsImdpdmVuX25hbWUiOiJOZXN0IiwiZmFtaWx5X25hbWUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5AYWNtZS5jb20ifQ.A1Hvk30mHk8ERbL21tRfmLGNfc9ntnKbJFwkf-pUkDmlKVc6LxGh_tNYNEYzhGSmqDfbA4weII9Q2HHyluOWRQiMZLIh6-qCgXmqUWCoXZUajCJ5QBVWtYN3it9FVerZSfpdx3mULSSS4P08bFGCLOTxIPXnTiSGCJ9wyaVtWuIXKhRWCcVTHtqPJBp0qEdrt9sUc4vlMgUVDs1CLicKpSQcArZ6a0OySwECN-ScqY1SmFMyZxGzmWOjr6gOPDWLjPZvN9blytceZ-lx6jTXw68VeKcAcllfh1gC1XN0kwpKfNCE2LS2VjPeDmD8-8kBGD3vbjS67EqNWReVMu6izA'; // bis Login steht manuell setzen
 
     async buchSenden() {
         const dummyBuch: Buch = {
@@ -58,15 +59,17 @@ export class AnlegenComponent {
             'Content-Type': 'application/json',
         });
         try {
-            const result = await firstValueFrom(
+            const response = await firstValueFrom(
                 this.#http.post('https://localhost:3000/rest', dummyBuch, {
                     headers,
+                    observe: 'response',
                 }),
             );
-            console.log('Buch erfolgreich angelegt:', result);
+            console.log('Buch erfolgreich angelegt:', response.status);
+            this.responseStatus = response.status;
         } catch (err) {
             if (err instanceof HttpErrorResponse) {
-                this.erroer = err;
+                this.error = err;
                 console.error('Fehler beim Anlegen:', err.status, err.message);
             } else {
                 console.error('Unbekannter Fehler:', err);
