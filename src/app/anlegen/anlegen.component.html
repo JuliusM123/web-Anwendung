@@ -1,5 +1,5 @@
 <div
-  class="flex items-center justify-center min-h-screen"
+  class="flex items-center justify-center min-h-screen relative"
   style="
     background-image: url('assets/library.svg');
     background-size: cover;
@@ -9,89 +9,184 @@
   <div
     class="absolute inset-0 bg-gradient-to-b from-transparent to-black pointer-events-none"
   ></div>
-  <fieldset
-    class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 relative z-10"
-  >
-    <legend class="fieldset-legend">Page details</legend>
 
-    <label class="label" for="title">Titel</label>
-    <input id="title" type="text" class="input" placeholder="Titel eingeben" />
+  <div class="flex flex-col items-center relative z-10">
+    <fieldset
+      class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
+    >
+      <label class="label" for="title">Titel</label>
+      <input
+        id="title"
+        type="text"
+        class="input"
+        placeholder="Titel eingeben"
+        [(ngModel)]="titel"
+        name="titel"
+      />
 
-    <label class="label" for="slug">ISBN Nummer</label>
-    <input
-      id="slug"
-      type="text"
-      class="input"
-      placeholder="ISBN Nummer eingeben"
-    />
+      <label class="label" for="price">Preis</label>
+      <input
+        type="number"
+        class="input validator"
+        required
+        placeholder="Preis muss zwischen 0 und 100 liegen"
+        min="0"
+        max="100"
+        step="0.01"
+        [(ngModel)]="preis"
+        title="Preis muss zwischen 0 und 100 liegen"
+      />
+      <label class="label" for="slug">ISBN Nummer</label>
+      <input
+        id="slug"
+        type="text"
+        class="input"
+        placeholder="ISBN Nummer eingeben"
+        [(ngModel)]="isbn"
+        name="isbn"
+      />
 
-    <div class="flex items-center my-4">
-      <label class="label mr-4 min-w-[80px]" for="rating">Rating</label>
-      <div class="flex justify-center flex-1">
-        <div class="rating rating-lg" id="rating">
-          <input
-            type="radio"
-            name="rating-10"
-            class="rating-hidden"
-            aria-label="clear"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            class="mask mask-star-2"
-            aria-label="1 star"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            class="mask mask-star-2"
-            aria-label="2 star"
-            checked="checked"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            class="mask mask-star-2"
-            aria-label="3 star"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            class="mask mask-star-2"
-            aria-label="4 star"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            class="mask mask-star-2"
-            aria-label="5 star"
-          />
+      <div class="flex items-center my-4">
+        <label class="label mr-4 min-w-[80px]" for="rating">Rating</label>
+        <div class="flex justify-center flex-1">
+          <div class="rating rating-lg" id="rating">
+            <input
+              type="radio"
+              name="rating-10"
+              class="rating-hidden"
+              aria-label="clear"
+            />
+            <input
+              type="radio"
+              name="rating-10"
+              class="mask mask-star-2"
+              aria-label="1 star"
+              [(ngModel)]="rating"
+              [value]="1"
+            />
+            <input
+              type="radio"
+              name="rating-10"
+              class="mask mask-star-2"
+              aria-label="2 star"
+              checked="checked"
+              [(ngModel)]="rating"
+              [value]="2"
+            />
+            <input
+              type="radio"
+              name="rating-10"
+              class="mask mask-star-2"
+              aria-label="3 star"
+              [(ngModel)]="rating"
+              [value]="3"
+            />
+            <input
+              type="radio"
+              name="rating-10"
+              class="mask mask-star-2"
+              aria-label="4 star"
+              [(ngModel)]="rating"
+              [value]="4"
+            />
+            <input
+              type="radio"
+              name="rating-10"
+              class="mask mask-star-2"
+              aria-label="5 star"
+              [(ngModel)]="rating"
+              [value]="5"
+            />
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="flex items-center my-4">
-      <label class="label mr-4 min-w-[80px]" for="Buchart">Buchart</label>
-      <div class="flex justify-center flex-1 gap-4">
-        <label class="flex items-center">
-          <input type="checkbox" class="checkbox checkbox-lg mr-2" />
-          Druckausgabe
-        </label>
-        <label class="flex items-center">
-          <input type="checkbox" class="checkbox checkbox-lg mr-2" />
-          Kindle
-        </label>
+      <div class="flex items-center my-4">
+        <label class="label mr-4 min-w-[80px]" for="Buchart">Buchart</label>
+        <fieldset class="fieldset">
+          <select class="select" [(ngModel)]="art" name="art" id="buchart">
+            <option disabled selected>Buchtyp auswählen</option>
+            <option>HARDCOVER</option>
+            <option>PAPERBACK</option>
+            <option>EPUB</option>
+          </select>
+        </fieldset>
       </div>
-    </div>
-    <div class="flex items-center my-4">
-      <label class="label mr-4" for="Lieferbar">Lieferbar</label>
-      <div class="flex justify-center flex-1">
-        <input type="radio" name="radio-1" class="radio" checked="checked" />
-        <input type="radio" name="radio-1" class="radio ml-4" />
+      <div class="flex items-center my-4">
+        <label class="label mr-4" for="lieferbarRadioGroup">Lieferbar</label>
+        <div class="flex justify-center flex-1" id="lieferbarRadioGroup">
+          <label class="mr-4 cursor-pointer label">
+            <span class="label-text mr-1">Ja</span>
+            <input
+              type="radio"
+              name="lieferbarRadio"
+              [value]="true"
+              class="radio"
+              [(ngModel)]="lieferbar"
+            />
+          </label>
+          <label class="cursor-pointer label">
+            <span class="label-text mr-1">Nein</span>
+            <input
+              type="radio"
+              name="lieferbarRadio"
+              [value]="false"
+              class="radio"
+              [(ngModel)]="lieferbar"
+            />
+          </label>
+        </div>
       </div>
-    </div>
 
-    <label class="label" for="title">Homepage</label>
-    <input id="title" type="text" class="input" placeholder="Titel eingeben" />
-  </fieldset>
+      <label class="label" for="homepage">homepage</label>
+      <input
+        class="input validator"
+        type="homepage"
+        required
+        placeholder="Homepage eingeben"
+        [(ngModel)]="homepage"
+        name="homepage"
+      />
+
+      <div class="mt-4 flex justify-center">
+        <button class="btn btn-primary" (click)="buchSenden()">Anlegen</button>
+      </div>
+    </fieldset>
+
+    @if (error) {
+      <div role="alert" class="alert alert-error w-xs mt-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <span>{{ error.status }}: {{ error.statusText }}</span>
+      </div>
+    } @else if (responseStatus) {
+      <div role="alert" class="alert alert-success w-xs mt-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 shrink-0 stroke-current"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+        <span>{{ responseStatus }}: Buch erfolgreich angelegt.</span>
+      </div>
+    }
+  </div>
 </div>

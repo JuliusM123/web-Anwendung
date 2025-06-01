@@ -11,6 +11,9 @@ export interface Buch {
     preis: Decimal;
     rabatt: Decimal;
     lieferbar: boolean;
+    datum: string;
+    homepage: string;
+    schlagwoerter: string[];
     titel: Titel;
     abbildung: Abbildung[];
 }
