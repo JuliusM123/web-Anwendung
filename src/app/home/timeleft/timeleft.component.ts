@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import type { OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -7,6 +8,7 @@ import { CommonModule } from '@angular/common';
     imports: [CommonModule],
     templateUrl: './timeleft.component.html',
     styleUrls: ['./timeleft.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimeleftComponent implements OnInit, OnDestroy {
     #targetDate: Date = new Date(2025, 6, 22, 12, 0, 0);

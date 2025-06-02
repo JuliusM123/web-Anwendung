@@ -4,13 +4,14 @@ import {
     HttpHeaders,
     HttpErrorResponse,
 } from '@angular/common/http';
-import { Buch, BuchArt } from '../../types/buch.model';
+import type { Buch, BuchArt } from '../../types/buch.model';
 import Decimal from 'decimal.js';
 import { FormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,selector: 'app-anlegen',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-anlegen',
     standalone: true,
     imports: [FormsModule],
     templateUrl: './anlegen.component.html',
