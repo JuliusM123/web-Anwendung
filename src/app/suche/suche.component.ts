@@ -6,7 +6,8 @@ import { firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,selector: 'app-suche',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-suche',
     standalone: true,
     imports: [CommonModule, FormsModule],
     templateUrl: './suche.component.html',
