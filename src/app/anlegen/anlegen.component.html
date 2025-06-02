@@ -20,9 +20,22 @@
         type="text"
         class="input"
         placeholder="Titel eingeben"
+        required
+        minlength="4"
         [(ngModel)]="titel"
         name="titel"
+        #titelInput="ngModel"
       />
+      @if (titelInput.invalid && (titelInput.dirty || titelInput.touched)) {
+        <div class="alert text-error text-sm font-semibold mt-2">
+          @if (titelInput.hasError('required')) {
+            <div>Titel ist erforderlich.</div>
+          }
+          @if (titelInput.hasError('minlength')) {
+            <div>Titel muss mindestens 4 Zeichen lang sein.</div>
+          }
+        </div>
+      }
 
       <label class="label" for="price">Preis</label>
       <input
