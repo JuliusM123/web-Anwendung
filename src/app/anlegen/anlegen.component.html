@@ -162,7 +162,13 @@
       />
 
       <div class="mt-4 flex justify-center">
-        <button class="btn btn-primary" (click)="buchSenden()">Anlegen</button>
+        <button
+          class="btn btn-primary"
+          (click)="buchSenden()"
+          [disabled]="titelInput.invalid"
+        >
+          Anlegen
+        </button>
       </div>
     </fieldset>
 
