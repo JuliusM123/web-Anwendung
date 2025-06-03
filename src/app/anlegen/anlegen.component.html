@@ -26,7 +26,7 @@
         name="titel"
         #titelInput="ngModel"
       />
-      @if (titelInput.invalid && (titelInput.dirty || titelInput.touched)) {
+      @if (titelInput.invalid && titelInput.touched) {
         <div class="alert text-error text-sm font-semibold mt-2">
           @if (titelInput.hasError('required')) {
             <div>Titel ist erforderlich.</div>
@@ -49,6 +49,44 @@
         [(ngModel)]="preis"
         title="Preis muss zwischen 0 und 100 liegen"
       />
+
+      <label class="label" for="rabatt">Rabatt</label>
+      <input
+        type="number"
+        class="input validator"
+        required
+        placeholder="Rabatt muss zwischen 0% und 100% liegen"
+        min="0"
+        max="100"
+        step="1"
+        [(ngModel)]="rabatt"
+        title="Rabatt muss zwischen 0 und 100 liegen"
+      />
+
+      <label class="label" for="rabatt">Datum eingeben</label>
+      <input
+        type="date"
+        class="input validator"
+        required
+        placeholder="Pick a date in 2025"
+        min="2025-01-01"
+        max="2025-12-31"
+        [(ngModel)]="datum"
+      />
+
+      <label class="label" for="rabatt">Schlagwörter eingeben</label>
+      <form class="filter">
+        <input class="btn btn-square" type="reset" value="×" />
+        <input class="btn" type="radio" name="frameworks" aria-label="JS" />
+        <input class="btn" type="radio" name="frameworks" aria-label="TS" />
+        <input
+          class="btn"
+          type="radio"
+          name="frameworks"
+          aria-label="JS und TS"
+        />
+      </form>
+
       <label class="label" for="slug">ISBN Nummer</label>
       <input
         id="slug"
