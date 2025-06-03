@@ -1,0 +1,138 @@
+/* General body styling to ensure full height and remove default margins */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: sans-serif; /* A common sans-serif font */
+}
+
+/* Hero section styling */
+.hero {
+  min-height: 100vh; /* Full viewport height */
+  display: flex; /* For centering content */
+  align-items: center; /* Vertical centering */
+  justify-content: center; /* Horizontal centering */
+  background-image: url('assets/login.svg'); /* Background image */
+  background-size: cover; /* Cover the entire area */
+  background-position: center; /* Center the background image */
+  background-color: #e5e7eb; /* Fallback background color (like base-200) */
+  padding: 1rem; /* Some padding for smaller screens */
+}
+
+/* Content container within the hero section */
+.hero-content {
+  display: flex;
+  flex-direction: column; /* Stack items vertically by default */
+  align-items: center; /* Center items horizontally */
+  width: 100%;
+  max-width: 1024px; /* Max width for the content area */
+  gap: 2rem; /* Space between the text and the card */
+}
+
+/* Styling for the title */
+.hero-content h1 {
+  font-size: 3rem; /* text-5xl equivalent */
+  font-weight: 700; /* font-bold */
+  color: #000000; /* text-black */
+  text-align: center; /* Center text on small screens */
+  margin: 0; /* Remove default margin */
+}
+
+/* Card styling */
+.card {
+  background-color: #ffffff; /* bg-base-100 equivalent (white) */
+  width: 100%;
+  max-width: 24rem; /* max-w-sm */
+  border-radius: 0.5rem; /* Rounded corners */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-2xl equivalent */
+}
+
+/* Card body styling */
+.card-body {
+  padding: 2rem; /* Spacing inside the card */
+}
+
+/* Fieldset styling (optional, mostly for structure) */
+.fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label styling */
+.label {
+  font-size: 0.875rem; /* text-sm */
+  color: #374151; /* A common text color for labels */
+  margin-bottom: 0.5rem;
+  display: block; /* Ensure it takes its own line */
+}
+
+/* Input field styling */
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem; /* Padding inside input */
+  border: 1px solid #d1d5db; /* Border color */
+  border-radius: 0.375rem; /* Rounded corners */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  margin-bottom: 1rem; /* Space below each input */
+}
+
+.input::placeholder {
+  color: #9ca3af; /* Placeholder text color */
+}
+
+/* Button styling */
+.btn {
+  display: inline-block;
+  width: 100%; /* Make button full width of its container */
+  padding: 0.75rem 1.5rem;
+  font-weight: 600; /* Semi-bold */
+  text-align: center;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.btn-neutral {
+  background-color: #374151; /* A neutral dark color (like Tailwind's neutral) */
+  color: #ffffff; /* White text */
+}
+
+.btn-neutral:hover {
+  background-color: #1f2937; /* Darker on hover */
+}
+
+.mt-4 {
+  margin-top: 1rem; /* mt-4 equivalent */
+}
+
+/* Responsive adjustments for larger screens (lg breakpoint, typically around 1024px) */
+@media (min-width: 1024px) {
+  .hero-content {
+    flex-direction: row-reverse; /* Reverse order and arrange in a row */
+    justify-content: space-between; /* Space out the items */
+  }
+
+  .hero-content > div:first-child {
+    /* This targets the div with the h1 */
+    width: 50%; /* lg:w-1/2 */
+    display: flex;
+    justify-content: flex-end; /* lg:justify-end */
+    align-items: center;
+  }
+
+  .hero-content > div:last-child {
+    /* This targets the div with the card */
+    width: auto; /* Let the card take its max-w-sm */
+    flex-shrink: 0; /* Prevent card from shrinking */
+  }
+
+  .hero-content h1 {
+    text-align: right; /* lg:text-right */
+  }
+}
