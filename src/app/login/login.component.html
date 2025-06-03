@@ -1,29 +1,30 @@
-<div
-  class="hero bg-base-200 min-h-screen"
-  style="
-    background-image: url('assets/login.svg');
-    background-size: cover;
-    background-position: center;
-  "
->
-  <div class="hero-content flex-col lg:flex-row-reverse">
-    <div
-      class="flex items-center justify-center lg:justify-end w-full lg:w-1/2"
-    >
-      <h1 class="text-5xl font-bold text-black text-center lg:text-right">
-        Login
-      </h1>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.component.css">  <!-- HIER IST DER WICHTIGE TEIL -->
+</head>
+<body>
+    <!-- Dein HTML-Code von oben kommt hier rein -->
+    <div class="hero bg-base-200 min-h-screen" style="background-image: url('assets/login.svg'); background-size: cover; background-position: center;">
+        <div class="hero-content flex-col lg:flex-row-reverse">
+            <div class="flex items-center justify-center lg:justify-end w-full lg:w-1/2">
+                <h1 class="text-5xl font-bold text-black text-center lg:text-right">
+                    Login
+                </h1>
+            </div>
+            <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+                <div class="card-body">
+                    <fieldset class="fieldset">
+                        <label class="label" for="email">Email</label>
+                        <input id="email" type="email" class="input" placeholder="Email" />
+                        <label class="label" for="password">Password</label>
+                        <input type="password" class="input" placeholder="Password" />
+                        <button class="btn btn-neutral mt-4">Login</button>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-      <div class="card-body">
-        <fieldset class="fieldset">
-          <label class="label" for="email">Email</label>
-          <input id="email" type="email" class="input" placeholder="Email" />
-          <label class="label" for="password">Password</label>
-          <input type="password" class="input" placeholder="Password" />
-          <button class="btn btn-neutral mt-4">Login</button>
-        </fieldset>
-      </div>
-    </div>
-  </div>
-</div>
+</body>
+</html>
