@@ -14,60 +14,60 @@ import { FormsModule } from '@angular/forms';
  * The search results are fetched from a REST API.
  */
 @Component({
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-suche',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './suche.component.html',
-  styleUrls: ['./suche.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-suche',
+    standalone: true,
+    imports: [CommonModule, FormsModule],
+    templateUrl: './suche.component.html',
+    styleUrls: ['./suche.component.css'],
 })
 export class SucheComponent {
-  #http = inject(HttpClient);
+    #http = inject(HttpClient);
 
-  public buch: Buch | null | undefined;
+    public buch: Buch | null | undefined;
 
-  titel = '';
+    titel = '';
 
-  isbn = '';
+    isbn = '';
 
-  rating = '';
+    rating = '';
 
-  buchart = '';
+    buchart = '';
 
-  lieferbar: boolean | '' = false;
+    lieferbar: boolean | '' = false;
 
-  async suchen(
-    titel: string,
-    isbn: string,
-    rating: string,
-    buchart: string,
-    lieferbar: boolean | '',
-  ): Promise<void> {
-    console.log('Suchen wurde aufgerufen');
-    const params: Record<string, string | number | boolean> = {};
+    async suchen(
+        titel: string,
+        isbn: string,
+        rating: string,
+        buchart: string,
+        lieferbar: boolean | '',
+    ): Promise<void> {
+        console.log('Suchen wurde aufgerufen');
+        const params: Record<string, string | number | boolean> = {};
 
-    if (isbn) params['isbn'] = isbn;
-    if (titel) params['titel'] = titel;
-    if (rating) params['rating'] = rating;
-    if (buchart) params['art'] = buchart;
-    if (lieferbar !== '') params['lieferbar'] = lieferbar;
+        if (isbn) params['isbn'] = isbn;
+        if (titel) params['titel'] = titel;
+        if (rating) params['rating'] = rating;
+        if (buchart) params['art'] = buchart;
+        if (lieferbar !== '') params['lieferbar'] = lieferbar;
 
-    try {
-      const response: { content: Buch[] } = await firstValueFrom(
-        this.#http.get<{ content: Buch[] }>(
-          'https://localhost:3000/rest',
-          { params },
-        ),
-      );
-      console.log('Antwort:', response);
+        try {
+            const response: { content: Buch[] } = await firstValueFrom(
+                this.#http.get<{ content: Buch[] }>(
+                    'https://localhost:3000/rest',
+                    { params },
+                ),
+            );
+            console.log('Antwort:', response);
 
-      this.buch = response.content?.[0] ?? null;
-    } catch (err) {
-      if (err instanceof HttpErrorResponse && err.status === 404) {
-        this.buch = null;
-      } else {
-        console.error('Fehler beim Suchen', err);
-      }
+            this.buch = response.content?.[0] ?? null;
+        } catch (err) {
+            if (err instanceof HttpErrorResponse && err.status === 404) {
+                this.buch = null;
+            } else {
+                console.error('Fehler beim Suchen', err);
+            }
+        }
     }
-  }
 }

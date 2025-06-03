@@ -17,15 +17,15 @@ export type BuchArt = 'EPUB' | 'HARDCOVER' | 'PAPERBACK';
  * Enthält alle relevanten Informationen zu einem Buch, wie ISBN, Bewertung, Art, Preis, etc.
  */
 export interface Buch {
-  isbn: string;
-  rating: number;
-  art: BuchArt;
-  preis: Decimal;
-  rabatt: Decimal;
-  lieferbar: boolean;
-  datum: string;
-  homepage: string;
-  schlagwoerter: string[];
-  titel: Titel;
-  abbildung: Abbildung[];
+    isbn: string;
+    rating: number;
+    art: BuchArt;
+    preis: Decimal;
+    rabatt: Decimal;
+    lieferbar: boolean;
+    datum: string;
+    homepage: string;
+    schlagwoerter: string[];
+    titel: Titel;
+    abbildung: Abbildung[];
 }

@@ -13,9 +13,9 @@ import { provideHttpClient, withFetch } from '@angular/common/http';
  * @type {ApplicationConfig}
  */
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), // Configures zone.js change detection
-    provideRouter(routes), // Provides the application routes
-    provideHttpClient(withFetch()), // Configures HttpClient to use the fetch API
-  ],
+    providers: [
+        provideZoneChangeDetection({ eventCoalescing: true }), // Configures zone.js change detection
+        provideRouter(routes), // Provides the application routes
+        provideHttpClient(withFetch()), // Configures HttpClient to use the fetch API
+    ],
 };

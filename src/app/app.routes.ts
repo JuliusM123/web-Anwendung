@@ -14,10 +14,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
  * @type {Routes}
  */
 export const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default-Route
-  { path: 'home', component: HomeComponent }, // Home-Route
-  { path: 'suchen', component: SucheComponent },
-  { path: 'anlegen', component: AnlegenComponent },
-  { path: 'login', component: LoginComponent },
-  { path: '**', component: PageNotFoundComponent }, // Fallback-Route für nicht definierte Routen
+    { path: '', redirectTo: 'home', pathMatch: 'full' }, // Default-Route
+    { path: 'home', component: HomeComponent }, // Home-Route
+    { path: 'suchen', component: SucheComponent },
+    { path: 'anlegen', component: AnlegenComponent },
+    { path: 'login', component: LoginComponent },
+    { path: '**', component: PageNotFoundComponent }, // Fallback-Route für nicht definierte Routen
 ];
