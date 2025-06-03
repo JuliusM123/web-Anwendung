@@ -13,7 +13,6 @@ html {
   display: flex; /* For centering content */
   align-items: center; /* Vertical centering */
   justify-content: center; /* Horizontal centering */
-  background-image: url('assets/login.svg'); /* Background image */
   background-size: cover; /* Cover the entire area */
   background-position: center; /* Center the background image */
   background-color: #e5e7eb; /* Fallback background color (like base-200) */
