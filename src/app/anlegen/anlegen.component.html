@@ -23,12 +23,12 @@
         class="input"
         placeholder="Titel eingeben"
         required
-        minlength="4"
         pattern="^\w.*"
         [(ngModel)]="titel"
         name="titel"
         #titelInput="ngModel"
       />
+
       @if (titelInput.invalid && titelInput.touched) {
         <div class="alert text-error text-sm font-semibold mt-2">
           @if (titelInput.hasError('required')) {
@@ -38,6 +38,75 @@
             <div>
               Titel muss mit einem Buchstaben, einer Ziffer oder einem
               Unterstrich beginnen.
+            </div>
+          }
+        </div>
+      }
+
+      <label class="label" for="slug"
+        >ISBN Nummer <span class="text-error">*</span></label
+      >
+      <input
+        id="slug"
+        type="text"
+        class="input"
+        placeholder="ISBN Nummer eingeben"
+        required
+        pattern="^[\d-]{13}|[\d-]{17}$"
+        [(ngModel)]="isbn"
+        name="isbn"
+        #isbnInput="ngModel"
+      />
+
+      @if (isbnInput.invalid && isbnInput.touched) {
+        <div class="alert text-error text-sm font-semibold mt-2">
+          @if (isbnInput.hasError('required')) {
+            <div>ISBN ist erforderlich.</div>
+          }
+          @if (isbnInput.hasError('pattern')) {
+            <div>
+              ISBN ist ungültig. Bitte geben Sie eine gültige ISBN Nummer ein
+            </div>
+          }
+        </div>
+      }
+
+      <div class="flex items-center my-4">
+        <label class="label mr-4 min-w-[80px]" for="Buchart"
+          >Buchart <span class="text-error">*</span></label
+        >
+        <fieldset class="fieldset">
+          <select class="select" [(ngModel)]="art" name="art" id="buchart">
+            <option>HARDCOVER</option>
+            <option>PAPERBACK</option>
+            <option>EPUB</option>
+          </select>
+        </fieldset>
+      </div>
+
+      <label class="label" for="homepage"
+        >Homepage <span class="text-error">*</span></label
+      >
+      <input
+        id="homepage"
+        type="text"
+        class="input"
+        placeholder="Homepage eingeben"
+        required
+        pattern="^\w+(\.\w+)+$"
+        [(ngModel)]="homepage"
+        name="homepage"
+        #homepageInput="ngModel"
+      />
+
+      @if (homepageInput.invalid && homepageInput.touched) {
+        <div class="alert text-error text-sm font-semibold mt-2">
+          @if (homepageInput.hasError('required')) {
+            <div>Homepage ist erforderlich.</div>
+          }
+          @if (homepageInput.hasError('pattern')) {
+            <div>
+              Homepage ist ungültig. Bitte geben Sie eine gültige Homepage ein
             </div>
           }
         </div>
@@ -88,16 +157,6 @@
         min="2025-01-01"
         max="2025-12-31"
         [(ngModel)]="datum"
-      />
-
-      <label class="label" for="slug">ISBN Nummer</label>
-      <input
-        id="slug"
-        type="text"
-        class="input"
-        placeholder="ISBN Nummer eingeben"
-        [(ngModel)]="isbn"
-        name="isbn"
       />
 
       <label class="label" for="schlagwoerter">Schlagwörter</label>
@@ -176,17 +235,6 @@
       </div>
 
       <div class="flex items-center my-4">
-        <label class="label mr-4 min-w-[80px]" for="Buchart">Buchart</label>
-        <fieldset class="fieldset">
-          <select class="select" [(ngModel)]="art" name="art" id="buchart">
-            <option disabled selected>Buchtyp auswählen</option>
-            <option>HARDCOVER</option>
-            <option>PAPERBACK</option>
-            <option>EPUB</option>
-          </select>
-        </fieldset>
-      </div>
-      <div class="flex items-center my-4">
         <label class="label mr-4" for="lieferbarRadioGroup">Lieferbar</label>
         <div class="flex justify-center flex-1" id="lieferbarRadioGroup">
           <label class="mr-4 cursor-pointer label">
@@ -211,16 +259,6 @@
           </label>
         </div>
       </div>
-
-      <label class="label" for="homepage">homepage</label>
-      <input
-        class="input validator"
-        type="homepage"
-        required
-        placeholder="Homepage eingeben"
-        [(ngModel)]="homepage"
-        name="homepage"
-      />
 
       <div class="mt-4 flex justify-center">
         <button
