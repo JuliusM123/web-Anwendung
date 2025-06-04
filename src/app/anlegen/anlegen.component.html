@@ -264,7 +264,9 @@
         <button
           class="btn btn-primary"
           (click)="buchSenden()"
-          [disabled]="titelInput.invalid"
+          [disabled]="
+            titelInput.invalid || isbnInput.invalid || homepageInput.invalid
+          "
         >
           Anlegen
         </button>
