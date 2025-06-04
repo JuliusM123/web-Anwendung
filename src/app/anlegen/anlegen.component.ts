@@ -32,8 +32,8 @@ export class AnlegenComponent {
     titel = '';
     isbn = '';
     schlagwoerter: string[] = [];
-    preis = new Decimal(0);
-    rabatt = new Decimal(0);
+    preis = 0;
+    rabatt = 0;
     datum = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
     rating = 0;
     homepage = '';
@@ -45,7 +45,8 @@ export class AnlegenComponent {
     isJavascriptChecked = true;
     isTypescriptChecked = true;
 
-    readonly #token = 'Hier kommt der Token für die Authentifizierung hin';
+    readonly #token =
+        'Hier kommt der Token rein, der für die Authentifizierung benötigt wird.';
 
     async buchSenden() {
         const schlagwoerter: string[] = [];
@@ -56,16 +57,19 @@ export class AnlegenComponent {
             schlagwoerter.push('TYPESCRIPT');
         }
 
+        const preisDecimal = new Decimal(this.preis);
+        const rabattDecimal = new Decimal(this.rabatt);
+
         const dummyBuch: Buch = {
             isbn: this.isbn,
             rating: this.rating,
             art: this.art as BuchArt,
-            preis: this.preis,
-            rabatt: this.rabatt.div(100),
+            preis: preisDecimal,
+            rabatt: rabattDecimal.div(100),
             lieferbar: this.lieferbar,
             datum: this.datum,
             homepage: this.homepage,
-            schlagwoerter: this.schlagwoerter,
+            schlagwoerter: schlagwoerter,
             titel: {
                 titel: this.titel,
                 untertitel: 'untertitelpost',
