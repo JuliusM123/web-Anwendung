@@ -37,6 +37,19 @@
         </div>
       }
 
+      <label class="label" for="title">Titel</label>
+      <input
+        id="title"
+        type="text"
+        class="input"
+        placeholder="Titel eingeben"
+        required
+        minlength="4"
+        [(ngModel)]="titel"
+        name="titel"
+        #titelInput="ngModel"
+      />
+
       <label class="label" for="price">Preis</label>
       <input
         type="number"

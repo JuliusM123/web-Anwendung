@@ -30,6 +30,7 @@ export class AnlegenComponent {
     #http = inject(HttpClient);
 
     titel = '';
+    untertitel = '';
     isbn = '';
     schlagwoerter: string[] = [];
     preis = 0;
@@ -72,7 +73,7 @@ export class AnlegenComponent {
             schlagwoerter: schlagwoerter,
             titel: {
                 titel: this.titel,
-                untertitel: 'untertitelpost',
+                untertitel: this.untertitel,
             },
             abbildung: [
                 {
