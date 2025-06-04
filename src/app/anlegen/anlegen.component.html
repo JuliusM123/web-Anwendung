@@ -14,7 +14,9 @@
     <fieldset
       class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4"
     >
-      <label class="label" for="title">Titel</label>
+      <label class="label" for="title"
+        >Titel <span class="text-error">*</span></label
+      >
       <input
         id="title"
         type="text"
@@ -22,6 +24,7 @@
         placeholder="Titel eingeben"
         required
         minlength="4"
+        pattern="^\w.*"
         [(ngModel)]="titel"
         name="titel"
         #titelInput="ngModel"
@@ -31,8 +34,11 @@
           @if (titelInput.hasError('required')) {
             <div>Titel ist erforderlich.</div>
           }
-          @if (titelInput.hasError('minlength')) {
-            <div>Titel muss mindestens 4 Zeichen lang sein.</div>
+          @if (titelInput.hasError('pattern')) {
+            <div>
+              Titel muss mit einem Buchstaben, einer Ziffer oder einem
+              Unterstrich beginnen.
+            </div>
           }
         </div>
       }
