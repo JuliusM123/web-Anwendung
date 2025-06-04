@@ -84,20 +84,22 @@
         name="isbn"
       />
 
-      <label class="label" for="slug">Schlagwörter</label>
+      <label class="label" for="schlagwoerter">Schlagwörter</label>
       <div class="flex items-center">
         <input
           type="checkbox"
           id="javascript"
-          checked="checked"
           class="checkbox"
+          name="javascript"
+          [(ngModel)]="isJavascriptChecked"
         />
         <label class="label mr-2" for="javascript">JAVASCRIPT</label>
         <input
           type="checkbox"
           id="typescript"
-          checked="checked"
           class="checkbox"
+          name="typescript"
+          [(ngModel)]="isTypescriptChecked"
         />
         <label class="label" for="typescript">TYPESCRIPT</label>
       </div>

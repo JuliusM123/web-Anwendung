@@ -31,6 +31,7 @@ export class AnlegenComponent {
 
     titel = '';
     isbn = '';
+    schlagwoerter: string[] = [];
     preis = new Decimal(0);
     rabatt = new Decimal(0);
     datum = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
@@ -41,9 +42,20 @@ export class AnlegenComponent {
     error: HttpErrorResponse | null = null;
     responseStatus: number | null = null;
 
+    isJavascriptChecked = true;
+    isTypescriptChecked = true;
+
     readonly #token = 'Hier kommt der Token für die Authentifizierung hin';
 
     async buchSenden() {
+        const schlagwoerter: string[] = [];
+        if (this.isJavascriptChecked) {
+            schlagwoerter.push('JAVASCRIPT');
+        }
+        if (this.isTypescriptChecked) {
+            schlagwoerter.push('TYPESCRIPT');
+        }
+
         const dummyBuch: Buch = {
             isbn: this.isbn,
             rating: this.rating,
@@ -53,7 +65,7 @@ export class AnlegenComponent {
             lieferbar: this.lieferbar,
             datum: this.datum,
             homepage: this.homepage,
-            schlagwoerter: ['JAVASCRIPT', 'TYPESCRIPT'],
+            schlagwoerter: this.schlagwoerter,
             titel: {
                 titel: this.titel,
                 untertitel: 'untertitelpost',
