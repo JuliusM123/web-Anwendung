@@ -113,6 +113,9 @@ export class AuthService {
     localStorage.setItem('authToken', response.access_token);
     localStorage.setItem('refreshToken', response.refresh_token);
     localStorage.setItem('authTokenExpiration', expirationDate.toString());
+
+    const user = jwtDecode<User>(response.access_token);
+    localStorage.setItem('userData', JSON.stringify(user)); 
   }
 
   public getToken(): string | null { 

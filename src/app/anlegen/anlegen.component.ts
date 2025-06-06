@@ -46,9 +46,6 @@ export class AnlegenComponent {
     isJavascriptChecked = true;
     isTypescriptChecked = true;
 
-    readonly #token =
-        'Hier kommt der Token rein, der für die Authentifizierung benötigt wird.';
-
     async buchSenden() {
         const schlagwoerter: string[] = [];
         if (this.isJavascriptChecked) {
@@ -83,7 +80,6 @@ export class AnlegenComponent {
             ],
         };
         const headers = new HttpHeaders({
-            Authorization: `Bearer ${this.#token}`,
             'Content-Type': 'application/json',
         });
         try {
