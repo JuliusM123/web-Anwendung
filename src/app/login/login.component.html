@@ -35,5 +35,30 @@
         </div>
       </div>
     </div>
+    <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+    <div class="card-body">
+        <fieldset class="fieldset">
+            </fieldset>
+    </div>
+</div>
+<dialog #errorModal class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Login fehlgeschlagen!</h3>
+    <p class="py-4">{{ loginErrorMessage }}</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Schließen</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+<dialog #successModal class="modal">
+  <div class="modal-box p-0">
+    <div class="alert alert-success h-full">
+      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-8 w-8" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      <span class="text-lg font-bold">Erfolgreich eingeloggt!</span>
+    </div>
+  </div>
+</dialog>
   </div>
 </body>

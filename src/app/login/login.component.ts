@@ -1,7 +1,9 @@
-import { HttpErrorResponse} from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import type { ElementRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 
 const url = 'https://localhost:3000/auth/token';
@@ -18,39 +20,51 @@ const url = 'https://localhost:3000/auth/token';
 })
 export class LoginComponent {
     #httpClient = inject(HttpClient);
+    #router = inject(Router);
+    @ViewChild('errorModal') errorModal!: ElementRef<HTMLDialogElement>;
+    @ViewChild('successModal') successModal!: ElementRef<HTMLDialogElement>;
 
     username = '';
     password = '';
+    loginErrorMessage = '';
     error: HttpErrorResponse | null = null;
     responseStatus: number | null = null;
 
-async login() {
-    const loginData = {
-        username: this.username,
-        password: this.password
-    };
-    const headers = new HttpHeaders({
-        'Content-Type': 'application/json',
-    });
+    async login() {
+        const loginData = {
+            username: this.username,
+            password: this.password
+        };
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
 
-    try {
-        const response = await firstValueFrom(
-            this.#httpClient.post(url, loginData, { observe: 'response', headers })
-        );
+        try {
+            const response = await firstValueFrom(
+                this.#httpClient.post(url, loginData, { observe: 'response', headers })
+            );
 
-        this.responseStatus = response.status;
-        this.error = null;
-        console.log('Login successful:', response);
-
-    } catch (err) {
-        if (err instanceof HttpErrorResponse) {
-            this.responseStatus = err.status;
-            this.error = err;
-            console.error('Login failed:', err);
-        } else {
-            console.error('An unexpected error occurred:', err);
+            this.responseStatus = response.status;
+            this.error = null;
+            const accessToken = (response.body as { access_token?: string })?.access_token;
+            if (accessToken) {
+                localStorage.setItem('authToken', accessToken);
+                this.successModal.nativeElement.showModal();
+                setTimeout(() => {
+                    this.successModal.nativeElement.close();
+                    void this.#router.navigate(['/home']);
+                }, 1000);
+            }
+        } catch (err) {
+            if (err instanceof HttpErrorResponse && (err.status === 401 || err.status === 403)) {
+                this.loginErrorMessage = 'Benutzername oder Passwort ist falsch.';
+            } else {
+                this.loginErrorMessage = 'Ein unerwarteter Fehler ist aufgetreten.';
+            }
+            const modal = this.errorModal?.nativeElement;
+            if (modal instanceof HTMLDialogElement) {
+                modal.showModal();
+            }
         }
     }
-}
-    
 }
