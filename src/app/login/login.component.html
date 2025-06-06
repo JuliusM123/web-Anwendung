@@ -27,10 +27,10 @@
         <div class="card-body">
           <fieldset class="fieldset">
             <label class="label" for="username">Username</label>
-            <input id="username" type="text" class="input" placeholder="Username" />
+            <input id="username" type="text" class="input" placeholder="Username" [(ngModel)]="username" />
             <label class="label" for="password">Password</label>
-            <input type="password" class="input" placeholder="Password" />
-            <button class="btn btn-neutral mt-4" (click)="login()">Login</button>
+            <input type="password" class="input input-bordered" placeholder="Password" [(ngModel)]="password" />
+            <button class="btn btn-primary mt-6" (click)="login()">Login</button>
           </fieldset>
         </div>
       </div>
