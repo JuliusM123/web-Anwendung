@@ -5,7 +5,8 @@ import { Component, ChangeDetectionStrategy, inject, ViewChild } from '@angular/
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
-import { AuthService, TokenResponse } from '../service/auth.service';
+import type { TokenResponse } from '../service/auth.service';
+import { AuthService } from '../service/auth.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
