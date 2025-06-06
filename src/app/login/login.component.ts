@@ -6,8 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 
-const url = 'https://localhost:3000/auth/token';
-
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-login',
@@ -31,6 +29,7 @@ export class LoginComponent {
     responseStatus: number | null = null;
 
     async login() {
+        console.log('Login attempt with:', this.username, this.password);
         const loginData = {
             username: this.username,
             password: this.password
@@ -38,6 +37,7 @@ export class LoginComponent {
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
         });
+        const url = 'https://localhost:3000/auth/token';
 
         try {
             const response = await firstValueFrom(

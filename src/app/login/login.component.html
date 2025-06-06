@@ -1,64 +1,72 @@
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login</title>
-  <link rel="stylesheet" href="login.component.css" />
-  <!-- HIER IST DER WICHTIGE TEIL -->
-</head>
-<body>
-  <!-- Dein HTML-Code von oben kommt hier rein -->
-  <div
+<div
     class="hero bg-base-200 min-h-screen"
     style="
-      background-image: url('assets/login.svg');
-      background-size: cover;
-      background-position: center;
+        background-image: url('assets/login.svg');
+        background-size: cover;
+        background-position: center;
     "
-  >
+>
     <div class="hero-content flex-col lg:flex-row-reverse">
-      <div
-        class="flex items-center justify-center lg:justify-end w-full lg:w-1/2"
-      >
-        <h1 class="text-5xl font-bold text-black text-center lg:text-right">
-          Login
-        </h1>
-      </div>
-      <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-        <div class="card-body">
-          <fieldset class="fieldset">
-            <label class="label" for="username">Username</label>
-            <input id="username" type="text" class="input" placeholder="Username" [(ngModel)]="username" />
-            <label class="label" for="password">Password</label>
-            <input type="password" class="input input-bordered" placeholder="Password" [(ngModel)]="password" />
-            <button class="btn btn-primary mt-6" (click)="login()">Login</button>
-          </fieldset>
+        <div class="text-center lg:text-right lg:w-1/2">
+            <h1 class="text-5xl font-bold text-black">Login</h1>
         </div>
-      </div>
-    </div>
-    <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
-    <div class="card-body">
-        <fieldset class="fieldset">
-            </fieldset>
+        <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+            <form class="card-body" (ngSubmit)="login()">
+                <div class="form-control">
+                    <label class="label" for="username">
+                        <span class="label-text">Username</span>
+                    </label>
+                    <input
+                        id="username"
+                        type="text"
+                        placeholder="Username"
+                        class="input input-bordered"
+                        [(ngModel)]="username"
+                        name="username"
+                        required
+                    />
+                </div>
+                <div class="form-control">
+                    <label class="label" for="password">
+                        <span class="label-text">Password</span>
+                    </label>
+                    <input
+                        id="password"
+                        type="password"
+                        placeholder="Password"
+                        class="input input-bordered"
+                        [(ngModel)]="password"
+                        name="password"
+                        required
+                    />
+                </div>
+                <div class="form-control mt-6">
+                    <button class="btn btn-primary" type="submit">Login</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
 <dialog #errorModal class="modal">
-  <div class="modal-box">
-    <h3 class="font-bold text-lg">Login fehlgeschlagen!</h3>
-    <p class="py-4">{{ loginErrorMessage }}</p>
-    <div class="modal-action">
-      <form method="dialog">
-        <button class="btn">Schließen</button>
-      </form>
+    <div class="modal-box">
+        <h3 class="font-bold text-lg">Login fehlgeschlagen!</h3>
+        <p class="py-4">{{ loginErrorMessage }}</p>
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn">Schließen</button>
+            </form>
+        </div>
     </div>
-  </div>
 </dialog>
+
 <dialog #successModal class="modal">
-  <div class="modal-box p-0">
-    <div class="alert alert-success h-full">
-      <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-8 w-8" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-      <span class="text-lg font-bold">Erfolgreich eingeloggt!</span>
+    <div class="modal-box p-0">
+        <div class="alert alert-success h-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-8 w-8" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="text-lg font-bold">Erfolgreich eingeloggt!</span>
+        </div>
     </div>
-  </div>
 </dialog>
-  </div>
-</body>
