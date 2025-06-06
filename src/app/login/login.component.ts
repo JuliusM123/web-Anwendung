@@ -5,6 +5,7 @@ import { Component, ChangeDetectionStrategy, inject, ViewChild } from '@angular/
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
+import { AuthService, TokenResponse } from '../service/auth.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -19,6 +20,8 @@ import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 export class LoginComponent {
     #httpClient = inject(HttpClient);
     #router = inject(Router);
+    #authService = inject(AuthService);
+    
     @ViewChild('errorModal') errorModal!: ElementRef<HTMLDialogElement>;
     @ViewChild('successModal') successModal!: ElementRef<HTMLDialogElement>;
 
@@ -29,6 +32,7 @@ export class LoginComponent {
     responseStatus: number | null = null;
 
     async login() {
+        
         console.log('Login attempt with:', this.username, this.password);
         const loginData = {
             username: this.username,
@@ -40,21 +44,20 @@ export class LoginComponent {
         const url = 'https://localhost:3000/auth/token';
 
         try {
-            const response = await firstValueFrom(
-                this.#httpClient.post(url, loginData, { observe: 'response', headers })
-            );
+             const response = await firstValueFrom(
+            this.#httpClient.post<TokenResponse>(url, loginData, { headers })
+        );
 
-            this.responseStatus = response.status;
-            this.error = null;
-            const accessToken = (response.body as { access_token?: string })?.access_token;
-            if (accessToken) {
-                localStorage.setItem('authToken', accessToken);
-                this.successModal.nativeElement.showModal();
-                setTimeout(() => {
-                    this.successModal.nativeElement.close();
-                    void this.#router.navigate(['/home']);
-                }, 1000);
-            }
+        if (response?.access_token && response?.refresh_token) {
+
+            this.#authService.loginSuccess(response);
+
+            this.successModal.nativeElement.showModal();
+            setTimeout(() => {
+                this.successModal.nativeElement.close();
+                void this.#router.navigate(['/home']);
+            }, 1000);
+        }
         } catch (err) {
             if (err instanceof HttpErrorResponse && (err.status === 401 || err.status === 403)) {
                 this.loginErrorMessage = 'Benutzername oder Passwort ist falsch.';
