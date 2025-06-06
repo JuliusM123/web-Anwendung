@@ -1,4 +1,5 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -7,4 +8,10 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     templateUrl: './login.component.html',
     styleUrl: './login.component.css',
 })
-export class LoginComponent {}
+export class LoginComponent {
+    #httpClient = inject(HttpClient);
+
+    username = '';
+    password = '';
+    
+}
