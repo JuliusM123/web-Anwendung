@@ -81,6 +81,7 @@ export class AnlegenComponent {
         };
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
         });
         try {
             const response = await firstValueFrom(
