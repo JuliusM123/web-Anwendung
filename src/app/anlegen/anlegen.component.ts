@@ -1,8 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import {
-    HttpClient,
-    HttpErrorResponse,
-} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import type { Buch, BuchArt } from '../../types/buch.model';
 import Decimal from 'decimal.js';
 import { FormsModule } from '@angular/forms';
