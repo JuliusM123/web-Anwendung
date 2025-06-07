@@ -110,7 +110,7 @@ export class AuthService {
 
   private saveTokens(response: TokenResponse): void {
     const expirationDate = new Date().getTime() + response.expires_in * 1000;
-    localStorage.setItem('authToken', response.access_token);
+    localStorage.setItem('access_token', response.access_token);
     localStorage.setItem('refreshToken', response.refresh_token);
     localStorage.setItem('authTokenExpiration', expirationDate.toString());
 
@@ -119,7 +119,7 @@ export class AuthService {
   }
 
   public getToken(): string | null { 
-    return localStorage.getItem('authToken'); 
+    return localStorage.getItem('access_token'); 
   }
   public getRefreshToken(): string | null { 
     return localStorage.getItem('refreshToken'); 

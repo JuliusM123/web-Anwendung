@@ -1,5 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import type { ElementRef } from '@angular/core';
 import { Component, ChangeDetectionStrategy, inject, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -34,20 +33,18 @@ export class LoginComponent {
 
     async login() {
         
-        console.log('Login attempt with:', this.username, this.password);
+        console.log('Login attempt with:', this.username);
         const loginData = {
             username: this.username,
             password: this.password
         };
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-        });
+
         const url = 'https://localhost:3000/auth/token';
 
         try {
-             const response = await firstValueFrom(
-            this.#httpClient.post<TokenResponse>(url, loginData, { headers })
-        );
+            const response = await firstValueFrom(
+                this.#httpClient.post<TokenResponse>(url, loginData)
+            );
 
         if (response?.access_token && response?.refresh_token) {
 
