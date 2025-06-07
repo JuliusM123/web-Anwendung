@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
     HttpClient,
-    HttpHeaders,
     HttpErrorResponse,
 } from '@angular/common/http';
 import type { Buch, BuchArt } from '../../types/buch.model';
