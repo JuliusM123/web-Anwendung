@@ -79,14 +79,9 @@ export class AnlegenComponent {
                 },
             ],
         };
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        });
         try {
             const response = await firstValueFrom(
                 this.#http.post('https://localhost:3000/rest', dummyBuch, {
-                    headers,
                     observe: 'response',
                 }),
             );
