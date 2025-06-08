@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    inject,
+} from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import type { Buch, BuchArt } from '../../types/buch.model';
 import Decimal from 'decimal.js';
@@ -24,6 +29,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class AnlegenComponent {
     #http = inject(HttpClient);
+    #cdr = inject(ChangeDetectorRef);
 
     titel = '';
     untertitel = '';
@@ -43,6 +49,10 @@ export class AnlegenComponent {
     isTypescriptChecked = true;
 
     async buchSenden() {
+        this.responseStatus = null;
+        this.error = null;
+        this.#cdr.detectChanges();
+
         const schlagwoerter: string[] = [];
         if (this.isJavascriptChecked) {
             schlagwoerter.push('JAVASCRIPT');
@@ -83,7 +93,6 @@ export class AnlegenComponent {
             );
             console.log('Buch erfolgreich angelegt:', response.status);
             this.responseStatus = response.status;
-            this.error = null;
         } catch (err) {
             if (err instanceof HttpErrorResponse) {
                 this.error = err;
@@ -91,6 +100,8 @@ export class AnlegenComponent {
             } else {
                 console.error('Unbekannter Fehler:', err);
             }
+        } finally {
+            this.#cdr.detectChanges();
         }
     }
 }
