@@ -40,7 +40,7 @@ export class AnlegenComponent {
     datum = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
     rating = 0;
     homepage = '';
-    art: BuchArt | '' = '';
+    art: BuchArt = 'HARDCOVER';
     lieferbar = true;
     error: HttpErrorResponse | null = null;
     responseStatus: number | null = null;
@@ -67,7 +67,7 @@ export class AnlegenComponent {
         const dummyBuch: Buch = {
             isbn: this.isbn,
             rating: this.rating,
-            art: this.art as BuchArt,
+            art: this.art,
             preis: preisDecimal,
             rabatt: rabattDecimal.div(100),
             lieferbar: this.lieferbar,
