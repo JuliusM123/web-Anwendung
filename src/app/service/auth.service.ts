@@ -23,6 +23,8 @@ export interface User {
 export class AuthService {
     #http = inject(HttpClient);
     private currentUserSource = new BehaviorSubject<User | null>(null);
+    private loggedin = new BehaviorSubject<boolean>(!!localStorage.getItem('access_token'));
+    public isLoggedIn$ = this.loggedin.asObservable();
     public currentUser$ = this.currentUserSource.asObservable();
 
     private tokenRefreshTimer: ReturnType<typeof setTimeout> | undefined;
@@ -47,7 +49,7 @@ export class AuthService {
 
     public logout(): void {
         localStorage.clear();
-        clearTimeout(this.tokenRefreshTimer); // Wichtig: Timer stoppen!
+        clearTimeout(this.tokenRefreshTimer);
         this.currentUserSource.next(null);
     }
 
