@@ -55,10 +55,7 @@ module.exports = tseslint.config(
                 'error',
                 { ignoreVoid: true },
             ],
-            '@typescript-eslint/consistent-type-imports': [
-                'error',
-                { prefer: 'type-imports' },
-            ],
+            '@typescript-eslint/consistent-type-imports': 'off',
             '@angular-eslint/no-empty-lifecycle-method': 'error',
             '@angular-eslint/prefer-on-push-component-change-detection': 'warn',
             '@angular-eslint/sort-lifecycle-methods': 'warn',
