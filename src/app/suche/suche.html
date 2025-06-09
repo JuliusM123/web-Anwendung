@@ -109,40 +109,38 @@
       </button>
     </div>
     @if (buch === null || buch === undefined) {
-      <div class="mt-8 text-error text-sm font-semibold">
-        <span class="material-icons text-4xl mb-2">search_off</span>
-        <p class="text-lg font-semibold">Kein Buch gefunden</p>
-      </div>
+    <div class="mt-8 text-error text-sm font-semibold">
+      <span class="material-icons text-4xl mb-2">search_off</span>
+      <p class="text-lg font-semibold">Kein Buch gefunden</p>
+    </div>
     }
     <!-- <button class="btn btn-primary" (click)="suchen()">Suchen</button> -->
     @else {
-      <ul class="list bg-base-100 rounded-box shadow-md mt-8">
-        <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
-          Gefundenes Buch
-        </li>
+    <ul class="list bg-base-100 rounded-box shadow-md mt-8">
+      <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Gefundenes Buch</li>
 
-        <li class="list-row p-4 flex flex-col gap-2">
-          <div class="flex items-center gap-2">
-            <span class="material-icons text-primary">book</span>
-            <span class="font-semibold">{{ buch.titel.titel }}</span>
-          </div>
+      <li class="list-row p-4 flex flex-col gap-2">
+        <div class="flex items-center gap-2">
+          <span class="material-icons text-primary">book</span>
+          <span class="font-semibold">{{ buch.titel.titel }}</span>
+        </div>
 
-          <div class="flex items-center gap-2">
-            <span class="material-icons text-primary">qr_code</span>
-            <span>ISBN: {{ buch.isbn }}</span>
-          </div>
+        <div class="flex items-center gap-2">
+          <span class="material-icons text-primary">qr_code</span>
+          <span>ISBN: {{ buch.isbn }}</span>
+        </div>
 
-          <div class="flex items-center gap-2">
-            <span class="material-icons text-primary">star_rate</span>
-            <span>Rating: {{ buch.rating }}</span>
-          </div>
+        <div class="flex items-center gap-2">
+          <span class="material-icons text-primary">star_rate</span>
+          <span>Rating: {{ buch.rating }}</span>
+        </div>
 
-          <div class="flex items-center gap-2">
-            <span class="material-icons text-primary">style</span>
-            <span>Art: {{ buch.art }}</span>
-          </div>
-        </li>
-      </ul>
+        <div class="flex items-center gap-2">
+          <span class="material-icons text-primary">style</span>
+          <span>Art: {{ buch.art }}</span>
+        </div>
+      </li>
+    </ul>
     }
   </fieldset>
 </div>
