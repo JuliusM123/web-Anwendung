@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from './service/auth.service';
@@ -18,8 +18,7 @@ import { AuthService } from './service/auth.service';
 })
 export class AppComponent {
     title = 'web-Anwendung';
-
-    constructor(public authService: AuthService) {}
+    authService = inject(AuthService);
 
     openLogoutPopup(): void {
         if (confirm('Möchtest du dich wirklich ausloggen?')) {
