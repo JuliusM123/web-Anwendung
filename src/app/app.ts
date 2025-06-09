@@ -19,10 +19,4 @@ import { AuthService } from './service/auth.service';
 export class AppComponent {
     title = 'web-Anwendung';
     authService = inject(AuthService);
-
-    openLogoutPopup(): void {
-        if (confirm('Möchtest du dich wirklich ausloggen?')) {
-            this.authService.logout();
-        }
-    }
 }
