@@ -5,6 +5,7 @@ import {
     inject,
 } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import type { HttpResponse } from '@angular/common/http';
 import type { Buch, BuchArt } from '../../types/buch.model';
 import Decimal from 'decimal.js';
 import { FormsModule } from '@angular/forms';
@@ -43,7 +44,7 @@ export class AnlegenComponent {
     art: BuchArt = 'HARDCOVER';
     lieferbar = true;
     error: HttpErrorResponse | null = null;
-    responseStatus: number | null = null;
+    responseStatus: HttpResponse<unknown> | null = null;
 
     isJavascriptChecked = true;
     isTypescriptChecked = true;
@@ -92,7 +93,7 @@ export class AnlegenComponent {
                 }),
             );
             console.log('Buch erfolgreich angelegt:', response.status);
-            this.responseStatus = response.status;
+            this.responseStatus = response;
         } catch (err) {
             if (err instanceof HttpErrorResponse) {
                 this.error = err;
