@@ -58,12 +58,13 @@
       *ngIf="authService.isLoggedIn$ | async; else showLogin"
       class="flex items-center gap-4"
     >
-      <span
-        class="hidden md:inline text-l"
+      <div
+        class="hidden md:flex items-center gap-2 text-l whitespace-nowrap"
         *ngIf="authService.currentUser$ | async as user"
       >
-        Hallo, {{ user.preferred_username }}
-      </span>
+        <span>Hallo, {{ user.preferred_username }}</span>
+        <img src="assets/user.svg" alt="User Icon" class="w-5 h-5" />
+      </div>
       <button (click)="authService.logout()" class="btn btn-ghost text-l">
         <svg
           xmlns="http://www.w3.org/2000/svg"
