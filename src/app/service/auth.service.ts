@@ -64,7 +64,9 @@ export class AuthService {
         }
 
         const refreshCount = parseInt(
-            localStorage.getItem('refreshCount') || '0',10);
+            localStorage.getItem('refreshCount') ?? '0',
+            10,
+        );
         if (refreshCount >= 10) {
             this.logout();
             return;
@@ -84,7 +86,7 @@ export class AuthService {
                     console.log('Token erfolgreich erneuert!');
                     const newCount = refreshCount + 1;
                     localStorage.setItem('refreshCount', newCount.toString());
-                    console.log("Refresh-Zähler aktualisiert:", newCount);
+                    console.log('Refresh-Zähler aktualisiert:', newCount);
                     this.loginSuccess(response);
                 }),
                 catchError((err) => {
