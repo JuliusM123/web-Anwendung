@@ -36,9 +36,9 @@ export class AuthService {
     public loginSuccess(response: TokenResponse): void {
         try {
             const user = jwtDecode<User>(response.access_token);
-
             this.saveTokens(response);
             this.currentUserSource.next(user);
+            this.loggedin.next(true);
 
             this.scheduleTokenRefresh(response.expires_in);
         } catch (error) {
@@ -51,6 +51,7 @@ export class AuthService {
         localStorage.clear();
         clearTimeout(this.tokenRefreshTimer);
         this.currentUserSource.next(null);
+        this.loggedin.next(false); 
     }
 
     public refreshToken() {
@@ -94,13 +95,14 @@ export class AuthService {
             const userData = localStorage.getItem('userData');
             if (userData) {
                 this.currentUserSource.next(JSON.parse(userData) as User);
+                this.loggedin.next(true);
                 this.scheduleTokenRefresh(expiresIn / 1000);
             }
         } else {
             this.refreshToken()?.subscribe();
         }
     }
-
+    
     private scheduleTokenRefresh(expiresInSeconds: number) {
         clearTimeout(this.tokenRefreshTimer);
         const timeout = (expiresInSeconds - 60) * 1000;
