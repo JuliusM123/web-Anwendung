@@ -17,8 +17,8 @@ import { AuthService } from '../service/auth.service';
     selector: 'app-login',
     standalone: true,
     imports: [FormsModule],
-    templateUrl: './login.component.html',
-    styleUrl: './login.component.css',
+    templateUrl: './login.html',
+    styleUrl: './login.css',
 })
 export class LoginComponent {
     #httpClient = inject(HttpClient);

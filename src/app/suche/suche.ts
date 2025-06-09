@@ -18,8 +18,8 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-suche',
     standalone: true,
     imports: [FormsModule],
-    templateUrl: './suche.component.html',
-    styleUrls: ['./suche.component.css'],
+    templateUrl: './suche.html',
+    styleUrls: ['./suche.css'],
 })
 export class SucheComponent {
     #http = inject(HttpClient);

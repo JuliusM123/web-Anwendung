@@ -1,9 +1,9 @@
 import type { Routes } from '@angular/router';
-import { SucheComponent } from './suche/suche.component';
-import { AnlegenComponent } from './anlegen/anlegen.component';
-import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SucheComponent } from './suche/suche';
+import { AnlegenComponent } from './anlegen/anlegen';
+import { LoginComponent } from './login/login';
+import { HomeComponent } from './home/home';
+import { PageNotFoundComponent } from './page-not-found/page-not-found';
 
 /**
  * @constant routes

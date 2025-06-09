@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { TimeleftComponent } from './timeleft/timeleft.component';
+import { TimeleftComponent } from './timeleft/timeleft';
 
 @Component({
     selector: 'app-home',
     imports: [TimeleftComponent],
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.css',
+    templateUrl: './home.html',
+    styleUrl: './home.css',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {}

@@ -1,13 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import type { OnInit, OnDestroy } from '@angular/core';
 
-
 @Component({
     selector: 'app-timeleft',
     standalone: true,
     imports: [],
-    templateUrl: './timeleft.component.html',
-    styleUrls: ['./timeleft.component.css'],
+    templateUrl: './timeleft.html',
+    styleUrls: ['./timeleft.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimeleftComponent implements OnInit, OnDestroy {

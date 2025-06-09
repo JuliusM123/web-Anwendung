@@ -13,8 +13,8 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     selector: 'app-root',
     standalone: true,
     imports: [RouterOutlet, RouterLink],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css',
+    templateUrl: './app.html',
+    styleUrl: './app.css',
 })
 export class AppComponent {
     title = 'web-Anwendung';

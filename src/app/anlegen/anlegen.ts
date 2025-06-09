@@ -24,8 +24,8 @@ import { firstValueFrom } from 'rxjs';
     selector: 'app-anlegen',
     standalone: true,
     imports: [FormsModule],
-    templateUrl: './anlegen.component.html',
-    styleUrl: './anlegen.component.css',
+    templateUrl: './anlegen.html',
+    styleUrl: './anlegen.css',
 })
 export class AnlegenComponent {
     #http = inject(HttpClient);
