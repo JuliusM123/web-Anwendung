@@ -23,7 +23,9 @@ export interface User {
 export class AuthService {
     #http = inject(HttpClient);
     private currentUserSource = new BehaviorSubject<User | null>(null);
-    private loggedin = new BehaviorSubject<boolean>(!!localStorage.getItem('access_token'));
+    private loggedin = new BehaviorSubject<boolean>(
+        !!localStorage.getItem('access_token'),
+    );
     public isLoggedIn$ = this.loggedin.asObservable();
     public currentUser$ = this.currentUserSource.asObservable();
 
@@ -51,7 +53,7 @@ export class AuthService {
         localStorage.clear();
         clearTimeout(this.tokenRefreshTimer);
         this.currentUserSource.next(null);
-        this.loggedin.next(false); 
+        this.loggedin.next(false);
     }
 
     public refreshToken() {
@@ -102,7 +104,7 @@ export class AuthService {
             this.refreshToken()?.subscribe();
         }
     }
-    
+
     private scheduleTokenRefresh(expiresInSeconds: number) {
         clearTimeout(this.tokenRefreshTimer);
         const timeout = (expiresInSeconds - 60) * 1000;
