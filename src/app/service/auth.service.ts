@@ -63,6 +63,13 @@ export class AuthService {
             return;
         }
 
+        const refreshCount = parseInt(
+            localStorage.getItem('refreshCount') || '0',10);
+        if (refreshCount >= 10) {
+            this.logout();
+            return;
+        }
+
         const url = 'https://localhost:3000/auth/refresh';
         const body = new URLSearchParams();
         body.set('grant_type', 'refresh_token');
@@ -75,6 +82,9 @@ export class AuthService {
             .pipe(
                 tap((response) => {
                     console.log('Token erfolgreich erneuert!');
+                    const newCount = refreshCount + 1;
+                    localStorage.setItem('refreshCount', newCount.toString());
+                    console.log("Refresh-Zähler aktualisiert:", newCount);
                     this.loginSuccess(response);
                 }),
                 catchError((err) => {
