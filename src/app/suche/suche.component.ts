@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import type { Buch } from '../../types/buch.model';
 import { firstValueFrom } from 'rxjs';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 /**
@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-suche',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [FormsModule],
     templateUrl: './suche.component.html',
     styleUrls: ['./suche.component.css'],
 })

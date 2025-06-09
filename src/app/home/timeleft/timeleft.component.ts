@@ -1,11 +1,11 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import type { OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-timeleft',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './timeleft.component.html',
     styleUrls: ['./timeleft.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
