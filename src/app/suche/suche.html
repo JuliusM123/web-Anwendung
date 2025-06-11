@@ -50,11 +50,7 @@
         name="rating"
       />
       <div class="flex justify-between px-2.5 mt-2 text-xs">
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>5</span>
+        <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
       </div>
     </div>
 
@@ -93,13 +89,12 @@
           />
         </div>
         <div class="flex justify-center gap-10 text-sm">
-          <span>Ja</span>
-          <span>Nein</span>
+          <span>Ja</span><span>Nein</span>
         </div>
       </div>
     </div>
 
-    <!-- Button -->
+    <!-- Suchen Button -->
     <div class="mt-4 flex justify-center z-10 relative">
       <button
         class="btn btn-primary"
@@ -108,18 +103,24 @@
         Suchen
       </button>
     </div>
-    @if (buch === null || buch === undefined) {
+
+    <!-- Ergebnisse: keine -->
+    @if (wurdeGesucht && buecher.length === 0) {
     <div class="mt-8 text-error text-sm font-semibold">
       <span class="material-icons text-4xl mb-2">search_off</span>
       <p class="text-lg font-semibold">Kein Buch gefunden</p>
     </div>
     }
-    <!-- <button class="btn btn-primary" (click)="suchen()">Suchen</button> -->
+
+    <!-- Ergebnisse: mehrere -->
     @else {
     <ul class="list bg-base-100 rounded-box shadow-md mt-8">
-      <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Gefundenes Buch</li>
+      <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
+        Gefundene Bücher (Seite {{ page + 1 }} von {{ totalPages }})
+      </li>
 
-      <li class="list-row p-4 flex flex-col gap-2">
+      @for (buch of buecher; track buch.isbn) {
+      <li class="list-row p-4 flex flex-col gap-2 border-t">
         <div class="flex items-center gap-2">
           <span class="material-icons text-primary">book</span>
           <span class="font-semibold">{{ buch.titel.titel }}</span>
@@ -140,7 +141,29 @@
           <span>Art: {{ buch.art }}</span>
         </div>
       </li>
+      }
     </ul>
+
+    <!-- Pagination -->
+    <div class="mt-6 flex justify-between items-center text-sm">
+      <button
+        class="btn btn-outline"
+        (click)="prevPage()"
+        [disabled]="page === 0"
+      >
+        Zurück
+      </button>
+
+      <span>Seite {{ page + 1 }} von {{ totalPages }}</span>
+
+      <button
+        class="btn btn-outline"
+        (click)="nextPage()"
+        [disabled]="page + 1 >= totalPages"
+      >
+        Weiter
+      </button>
+    </div>
     }
   </fieldset>
 </div>
