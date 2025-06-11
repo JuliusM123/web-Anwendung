@@ -32,9 +32,20 @@
       type="text"
       class="input"
       placeholder="ISBN Nummer eingeben"
-      [(ngModel)]="isbn"
       name="isbn"
+      [(ngModel)]="isbn"
+      #isbnRef="ngModel"
+      pattern="^97[89]-\d{1,5}-\d{1,7}-\d{1,7}-[\dX]$"
     />
+
+    <!-- Nur validieren, wenn etwas eingetragen wurde -->
+    @if (isbn && isbnRef.invalid && (isbnRef.dirty || isbnRef.touched)) {
+    <div class="text-error text-sm mt-2">
+      @if (isbnRef.hasError('pattern')) {
+      <div>Ungültige ISBN. Format: 978-3-897-22583-1</div>
+      }
+    </div>
+    }
 
     <!-- Rating -->
     <div class="w-full max-w-xs">
