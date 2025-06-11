@@ -1,18 +1,14 @@
-import { HttpClient } from '@angular/common/http';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import type { Buch } from '../../types/buch.model';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    inject,
+} from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-
+import type { Buch } from '../../types/buch.model';
 import { FormsModule } from '@angular/forms';
 
-/**
- * @Component SucheComponent
- * @description
- * This component provides a user interface for searching books.
- * It allows users to search by title, ISBN, rating, book type, and availability.
- * The search results are fetched from a REST API.
- */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-suche',
@@ -23,18 +19,21 @@ import { FormsModule } from '@angular/forms';
 })
 export class SucheComponent {
     #http = inject(HttpClient);
+    constructor(private cdr: ChangeDetectorRef) {}
 
-    public buch: Buch | null | undefined;
+    public buecher: Buch[] = [];
 
     titel = '';
-
     isbn = '';
-
     rating = '';
-
     buchart = '';
-
     lieferbar: boolean | '' = false;
+
+    page = 0;
+    size = 5;
+    totalPages = 0;
+
+    public wurdeGesucht = false;
 
     async suchen(
         titel: string,
@@ -44,7 +43,10 @@ export class SucheComponent {
         lieferbar: boolean | '',
     ): Promise<void> {
         console.log('Suchen wurde aufgerufen');
-        const params: Record<string, string | number | boolean> = {};
+        const params: Record<string, string | number | boolean> = {
+            page: this.page,
+            size: this.size,
+        };
 
         if (isbn) params['isbn'] = isbn;
         if (titel) params['titel'] = titel;
@@ -53,21 +55,52 @@ export class SucheComponent {
         if (lieferbar !== '') params['lieferbar'] = lieferbar;
 
         try {
-            const response: { content: Buch[] } = await firstValueFrom(
-                this.#http.get<{ content: Buch[] }>(
+            const response = await firstValueFrom(
+                this.#http.get<{ content: Buch[]; totalPages: number }>(
                     'https://localhost:3000/rest',
                     { params },
                 ),
             );
             console.log('Antwort:', response);
 
-            this.buch = response.content?.[0] ?? null;
+            this.buecher = response.content ?? [];
+            this.totalPages = response.totalPages ?? 1;
         } catch (err) {
             if (err instanceof HttpErrorResponse && err.status === 404) {
-                this.buch = null;
+                this.buecher = [];
             } else {
                 console.error('Fehler beim Suchen', err);
+                this.buecher = [];
             }
+        }
+        this.wurdeGesucht = true;
+
+        this.cdr.markForCheck();
+    }
+
+    async nextPage(): Promise<void> {
+        if (this.page + 1 < this.totalPages) {
+            this.page++;
+            await this.suchen(
+                this.titel,
+                this.isbn,
+                this.rating,
+                this.buchart,
+                this.lieferbar,
+            );
+        }
+    }
+
+    async prevPage(): Promise<void> {
+        if (this.page > 0) {
+            this.page--;
+            await this.suchen(
+                this.titel,
+                this.isbn,
+                this.rating,
+                this.buchart,
+                this.lieferbar,
+            );
         }
     }
 }
