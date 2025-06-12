@@ -68,7 +68,10 @@
           },
           "defaultConfiguration": "development",
           "options": {
-            "proxyConfig": "proxy.conf.json"
+            "proxyConfig": "proxy.conf.json",
+            "ssl": true,
+            "sslKey": "./localhost-key.pem",
+            "sslCert": "./localhost.pem"
           }
         },
         "extract-i18n": {
