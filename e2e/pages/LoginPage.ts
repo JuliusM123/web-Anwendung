@@ -7,7 +7,6 @@ import { type Page, type Locator, expect } from '@playwright/test';
 export class LoginPage {
     readonly page: Page;
 
-    // Locators für die Elemente auf der Seite
     readonly usernameInput: Locator;
     readonly passwordInput: Locator;
     readonly loginButton: Locator;

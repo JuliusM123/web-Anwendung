@@ -18,8 +18,9 @@ import { FormsModule } from '@angular/forms';
     styleUrls: ['./suche.css'],
 })
 export class SucheComponent {
+    private cdr = inject(ChangeDetectorRef);
+
     #http = inject(HttpClient);
-    constructor(private cdr: ChangeDetectorRef) {}
 
     public buecher: Buch[] = [];
 
