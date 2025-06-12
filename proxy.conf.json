@@ -1,7 +1,8 @@
 {
   "/rest": {
     "target": "https://localhost:3000",
-    "secure": true,
+    "secure": false,
+    "changeOrigin": true,
     "logLevel": "debug"
   }
 }
