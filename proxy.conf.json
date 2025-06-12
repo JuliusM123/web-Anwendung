@@ -1,5 +1,5 @@
 {
-  "/api": {
+  "/rest": {
     "target": "https://localhost:3000",
     "secure": true,
     "logLevel": "debug"
