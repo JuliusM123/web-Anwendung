@@ -11,6 +11,9 @@
 npm-debug.log
 yarn-error.log
 
+localhost.pem
+localhost-key.pem
+
 # IDEs and editors
 .idea/
 .project
