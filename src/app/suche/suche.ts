@@ -58,7 +58,7 @@ export class SucheComponent {
         try {
             const response = await firstValueFrom(
                 this.#http.get<{ content: Buch[]; totalPages: number }>(
-                    'https://localhost:3000/rest',
+                    '/rest',
                     { params },
                 ),
             );
