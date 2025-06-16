@@ -1,19 +1,15 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { HttpClientTestingBackend } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { By } from '@angular/platform-browser';
 
 import { LoginComponent } from './login';
 import { AuthService, TokenResponse } from '../service/auth.service';
 
-/**
- * Unit tests for LoginComponent.
- */
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let httpBackend: HttpClientTestingBackend;
+  let httpBackend: HttpTestingController;
   let authService: jasmine.SpyObj<AuthService>;
   let router: jasmine.SpyObj<Router>;
 
@@ -30,17 +26,16 @@ describe('LoginComponent', () => {
     const authServiceSpy = jasmine.createSpyObj('AuthService', ['loginSuccess']);
 
     await TestBed.configureTestingModule({
-      imports: [LoginComponent, FormsModule],
+      imports: [LoginComponent, FormsModule, HttpClientTestingModule],
       providers: [
         { provide: AuthService, useValue: authServiceSpy },
-        { provide: Router, useValue: routerSpy },
-        HttpClientTestingBackend
+        { provide: Router, useValue: routerSpy }
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    httpBackend = TestBed.inject(HttpClientTestingBackend);
+    httpBackend = TestBed.inject(HttpTestingController);
     authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
     router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
     fixture.detectChanges();
