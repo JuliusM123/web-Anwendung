@@ -60,8 +60,6 @@ export class SucheComponent {
         if (buchart) params['art'] = buchart;
         if (lieferbar !== '') params['lieferbar'] = lieferbar;
 
-        console.log('➡️ Params für Request:', params);
-
         try {
             const response = await firstValueFrom(
                 this.#http.get<{
