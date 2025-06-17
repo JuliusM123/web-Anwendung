@@ -3,7 +3,7 @@ import { type Page, type Locator } from '@playwright/test';
 export interface BookData {
     titel: string;
     isbn: string;
-    rating: number;
+    rating?: number;
     art: 'HARDCOVER' | 'PAPERBACK' | 'EPUB';
     homepage: string;
     untertitel?: string;
@@ -54,8 +54,6 @@ export class AnlegenPage {
         await this.homepageInput.fill(data.homepage);
 
         await this.buchartDropdown.selectOption(data.art);
-
-        await this.getRatingStars(data.rating).click();
 
         await this.anlegenButton.click();
     }

@@ -17,7 +17,6 @@ test.describe('Anlegen-Funktionalität', () => {
         const buchDaten: BookData = {
             titel: testTitel,
             isbn: testIsbn,
-            rating: 5,
             art: 'HARDCOVER',
             homepage: 'beispiel.com',
         };
@@ -26,7 +25,7 @@ test.describe('Anlegen-Funktionalität', () => {
         await anlegenPage.createBook(buchDaten);
 
         // VERIFIZIERUNG: Weiterleitung checken
-        await expect(page).toHaveURL(/.*\/suche/);
+        await expect(page).toHaveURL(/.*\/suchen/);
 
         const suchePage = new SuchePage(page);
         await suchePage.searchByTitle(testTitel);

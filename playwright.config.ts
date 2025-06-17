@@ -27,10 +27,8 @@ export default defineConfig({
         baseURL:
             process.env['PLAYWRIGHT_TEST_BASE_URL'] ?? 'https://localhost:4200',
 
-        ignoreHTTPSErrors: true,
-
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-        trace: 'on-first-retry',
+        trace: 'on',
 
         video: 'on',
     },

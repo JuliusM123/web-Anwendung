@@ -39,10 +39,10 @@ export class AnlegenComponent {
     preis = 0;
     rabatt = 0;
     datum = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
-    rating = 0;
+    rating = 3;
     homepage = '';
     art: BuchArt = 'HARDCOVER';
-    lieferbar = true;
+    lieferbar = false;
     error: HttpErrorResponse | null = null;
     responseStatus: HttpResponse<unknown> | null = null;
 
