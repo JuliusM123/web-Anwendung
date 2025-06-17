@@ -8,12 +8,14 @@ import {
 import { firstValueFrom } from 'rxjs';
 import type { Buch } from '../../types/buch.model';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-suche',
     standalone: true,
-    imports: [FormsModule],
+    imports: [FormsModule, CommonModule],
     templateUrl: './suche.html',
     styleUrls: ['./suche.css'],
 })
@@ -35,6 +37,9 @@ export class SucheComponent {
     totalPages = 0;
 
     public wurdeGesucht = false;
+
+    @ViewChild('modalRef') modalRef!: ElementRef<HTMLDialogElement>;
+    public ausgewaehltesBuch: Buch | null = null;
 
     async suchen(
         titel: string,
@@ -110,5 +115,14 @@ export class SucheComponent {
                 this.lieferbar,
             );
         }
+    }
+
+    public buchAnzeigen(buch: Buch): void {
+        this.ausgewaehltesBuch = buch;
+        this.modalRef.nativeElement.showModal();
+    }
+
+    modalSchliessen(): void {
+        this.ausgewaehltesBuch = null;
     }
 }
