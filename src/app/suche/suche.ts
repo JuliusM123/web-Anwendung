@@ -45,7 +45,7 @@ export class SucheComponent {
     ): Promise<void> {
         console.log('Suchen wurde aufgerufen');
         const params: Record<string, string | number | boolean> = {
-            page: this.page,
+            page: this.page + 1,
             size: this.size,
         };
 
@@ -55,17 +55,24 @@ export class SucheComponent {
         if (buchart) params['art'] = buchart;
         if (lieferbar !== '') params['lieferbar'] = lieferbar;
 
+        console.log('➡️ Params für Request:', params);
+
         try {
             const response = await firstValueFrom(
-                this.#http.get<{ content: Buch[]; totalPages: number }>(
-                    '/rest',
-                    { params },
-                ),
+                this.#http.get<{
+                    content: Buch[];
+                    page: {
+                        number: number;
+                        size: number;
+                        totalElements: number;
+                        totalPages: number;
+                    };
+                }>('/rest', { params }),
             );
             console.log('Antwort:', response);
 
             this.buecher = response.content ?? [];
-            this.totalPages = response.totalPages ?? 1;
+            this.totalPages = response.page.totalPages ?? 1;
         } catch (err) {
             if (err instanceof HttpErrorResponse && err.status === 404) {
                 this.buecher = [];
