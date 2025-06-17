@@ -6,7 +6,6 @@
     background-position: center;
   "
 >
-  <!-- Gradient-Overlay -->
   <div
     class="absolute inset-0 bg-gradient-to-b from-transparent to-black pointer-events-none"
   ></div>
@@ -14,7 +13,7 @@
   <fieldset
     class="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4 relative z-10"
   >
-    <!-- Titel -->
+    <!-- Suchfelder -->
     <label class="label" for="title">Titel</label>
     <input
       id="title"
@@ -25,7 +24,6 @@
       name="titel"
     />
 
-    <!-- ISBN -->
     <label class="label" for="isbn">ISBN Nummer</label>
     <input
       id="isbn"
@@ -35,19 +33,15 @@
       name="isbn"
       [(ngModel)]="isbn"
       #isbnRef="ngModel"
-      pattern="^97[89]-\d{1,5}-\d{1,7}-\d{1,7}-[\dX]$"
+      pattern="^97[89]-\\d{1,5}-\\d{1,7}-\\d{1,7}-[\\dX]$"
     />
-
-    <!-- Nur validieren, wenn etwas eingetragen wurde -->
-    @if (isbn && isbnRef.invalid && (isbnRef.dirty || isbnRef.touched)) {
+    @if (isbn && isbnRef.invalid && (isbnRef.dirty || isbnRef.touched)) { @if
+    (isbnRef.hasError('pattern')) {
     <div class="text-error text-sm mt-2">
-      @if (isbnRef.hasError('pattern')) {
-      <div>Ungültige ISBN. Format: 978-3-897-22583-1</div>
-      }
+      Ungültige ISBN. Format: 978-3-897-22583-1
     </div>
-    }
+    } }
 
-    <!-- Rating -->
     <div class="w-full max-w-xs">
       <label class="label" for="rating">Rating</label>
       <input
@@ -65,7 +59,6 @@
       </div>
     </div>
 
-    <!-- Buchart -->
     <label class="label mt-4" for="buchart">Buchart</label>
     <select
       id="buchart"
@@ -79,7 +72,6 @@
       <option value="PAPERBACK">Paperback</option>
     </select>
 
-    <!-- Lieferbar -->
     <div class="flex items-center my-4">
       <label class="label mr-4" for="Lieferbar">Lieferbar</label>
       <div class="flex flex-col items-center flex-1">
@@ -105,7 +97,7 @@
       </div>
     </div>
 
-    <!-- Suchen Button -->
+    <!-- Suchen -->
     <div class="mt-4 flex justify-center z-10 relative">
       <button
         class="btn btn-primary"
@@ -115,38 +107,37 @@
       </button>
     </div>
 
-    <!-- Ergebnisse: keine -->
+    <!-- Ergebnisse -->
     @if (wurdeGesucht && buecher.length === 0) {
     <div class="mt-8 text-error text-sm font-semibold">
       <span class="material-icons text-4xl mb-2">search_off</span>
       <p class="text-lg font-semibold">Kein Buch gefunden</p>
     </div>
-    }
-
-    <!-- Ergebnisse: mehrere -->
-    @else {
+    } @else {
     <ul class="list bg-base-100 rounded-box shadow-md mt-8">
       <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">
         Gefundene Bücher (Seite {{ page + 1 }} von {{ totalPages }})
       </li>
 
       @for (buch of buecher; track buch.isbn) {
-      <li class="list-row p-4 flex flex-col gap-2 border-t">
+      <li
+        tabindex="0"
+        (click)="buchAnzeigen(buch)"
+        (keydown.enter)="buchAnzeigen(buch)"
+        class="list-row p-4 flex flex-col gap-2 border-t hover:bg-base-200 cursor-pointer"
+      >
         <div class="flex items-center gap-2">
           <span class="material-icons text-primary">book</span>
           <span class="font-semibold">{{ buch.titel.titel }}</span>
         </div>
-
         <div class="flex items-center gap-2">
           <span class="material-icons text-primary">qr_code</span>
           <span>ISBN: {{ buch.isbn }}</span>
         </div>
-
         <div class="flex items-center gap-2">
           <span class="material-icons text-primary">star_rate</span>
           <span>Rating: {{ buch.rating }}</span>
         </div>
-
         <div class="flex items-center gap-2">
           <span class="material-icons text-primary">style</span>
           <span>Art: {{ buch.art }}</span>
@@ -164,9 +155,7 @@
       >
         Zurück
       </button>
-
       <span>Seite {{ page + 1 }} von {{ totalPages }}</span>
-
       <button
         class="btn btn-outline"
         (click)="nextPage()"
@@ -177,4 +166,21 @@
     </div>
     }
   </fieldset>
+
+  <!-- Modal -->
+  <dialog #modalRef id="buch_modal" class="modal">
+    <div class="modal-box">
+      <h3 class="text-lg font-bold">Buchdetails (JSON)</h3>
+      <pre
+        class="py-4 text-left text-sm whitespace-pre-wrap break-words max-h-80 overflow-auto"
+      >
+{{ ausgewaehltesBuch | json }}
+      </pre>
+      <div class="modal-action">
+        <form method="dialog">
+          <button class="btn">Schließen</button>
+        </form>
+      </div>
+    </div>
+  </dialog>
 </div>
