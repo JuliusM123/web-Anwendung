@@ -7,17 +7,14 @@ test.describe('Komplette User Journey', () => {
     test('sollte Login, Anlegen und Suchen erfolgreich durchführen', async ({
         page,
     }) => {
-        // === PHASE 1: LOGIN ===
         const loginPage = new LoginPage(page);
         await loginPage.goto();
         await loginPage.login('admin', 'p');
-        // Bestätigung, dass der Login geklappt hat
         await expect(
             page.getByRole('button', { name: 'Logout' }),
         ).toBeVisible();
         console.log('Phase 1: Login erfolgreich.');
 
-        // === PHASE 2: ANLEGEN ===
         const anlegenPage = new AnlegenPage(page);
         const testIsbn = '978-9-0425-9844-7'; // Eine valide, statische ISBN
         const testTitel = `User Journey Buch ${new Date().getTime()}`;
@@ -33,17 +30,11 @@ test.describe('Komplette User Journey', () => {
         await anlegenPage.createBook(buchDaten);
         console.log('Phase 2: Buch angelegt.');
 
-        // === PHASE 3: SUCHE & VERIFIZIERUNG ===
-
-        // KORREKTUR 1: Prüfe auf die Erfolgsmeldung, die tatsächlich erscheint.
         await expect(page.getByRole('alert')).toContainText('201: Created');
 
-        // KORREKTUR 2: Da wir nicht weitergeleitet wurden, navigieren wir jetzt
-        // manuell zur Such-Seite, um unsere Verifizierung durchzuführen.
         const suchePage = new SuchePage(page);
         await suchePage.goto();
 
-        // Ab hier ist der Rest des Tests wieder korrekt
         await suchePage.searchByTitle(testTitel);
 
         const resultItems = suchePage.getResultItems();
