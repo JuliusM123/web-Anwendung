@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
-    HttpClientTestingModule,
     HttpTestingController,
     provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { AnlegenComponent } from './anlegen';
 import { FormsModule } from '@angular/forms';
 import {
+    HttpClient,
     HttpErrorResponse,
     provideHttpClient,
     withInterceptors,
@@ -18,19 +18,21 @@ describe('AnlegenComponent', () => {
     let component: AnlegenComponent;
     let fixture: ComponentFixture<AnlegenComponent>;
     let httpTestingController: HttpTestingController;
+    let httpClient: HttpClient;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [AnlegenComponent, FormsModule], // AnlegenComponent ist standalone
+            imports: [AnlegenComponent, FormsModule],
             providers: [
+                provideHttpClient(withInterceptors([authInterceptor])),
                 provideHttpClientTesting(),
-                provideHttpClient(withInterceptors([authInterceptor])), // HttpClient für API-Anfragen
             ], // Keine zusätzlichen Provider nötig, da HttpClientTestingModule bereitgestellt wird
         }).compileComponents();
 
         fixture = TestBed.createComponent(AnlegenComponent);
         component = fixture.componentInstance;
         httpTestingController = TestBed.inject(HttpTestingController);
+        httpClient = TestBed.inject(HttpClient);
         fixture.detectChanges(); // Initialisiert die Komponente und bindet Daten
     });
 
@@ -74,9 +76,7 @@ describe('AnlegenComponent', () => {
         const promise = component.buchSenden();
 
         // Erwarte eine POST-Anfrage an die API
-        const req = httpTestingController.expectOne(
-            'https://localhost:3000/rest',
-        );
+        const req = httpTestingController.expectOne('https://localhost:3000/rest');
         expect(req.request.method).toEqual('POST');
         expect(req.request.body.titel.titel).toEqual('Testbuch');
         expect(req.request.body.isbn).toEqual('978-1234567890');

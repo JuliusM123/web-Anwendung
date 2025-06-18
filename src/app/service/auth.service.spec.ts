@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import {
-    HttpClientTestingModule,
     HttpTestingController,
     provideHttpClientTesting,
 } from '@angular/common/http/testing';
@@ -60,7 +59,6 @@ describe('AuthService', () => {
                 provideHttpClient(withInterceptors([authInterceptor])),
                 provideHttpClientTesting(),
                 AuthService,
-
             ],
         });
 
