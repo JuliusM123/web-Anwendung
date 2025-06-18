@@ -36,7 +36,9 @@ export class AuthService {
     /** Der HTTP-Client für die Kommunikation mit dem Backend. */
     #http = inject(HttpClient);
     /** Ein `BehaviorSubject`, das den aktuellen angemeldeten Benutzer speichert oder `null`, wenn niemand angemeldet ist. */
-    private currentUserSource = new BehaviorSubject<User | null>(null);
+    private currentUserSource = new BehaviorSubject<User | undefined>(
+        undefined,
+    );
     /** Ein `BehaviorSubject`, das den Anmeldestatus des Benutzers verfolgt. */
     private loggedin = new BehaviorSubject<boolean>(
         !!localStorage.getItem('access_token'),
@@ -86,7 +88,8 @@ export class AuthService {
     public logout(): void {
         localStorage.clear();
         clearTimeout(this.tokenRefreshTimer);
-        this.currentUserSource.next(null);
+        // eslint-disable-next-line unicorn/no-useless-undefined
+        this.currentUserSource.next(undefined);
         this.loggedin.next(false);
     }
 
@@ -105,7 +108,7 @@ export class AuthService {
             return;
         }
 
-        const refreshCount = parseInt(
+        const refreshCount = Number.parseInt(
             localStorage.getItem('refreshCount') ?? '0',
             10,
         );
@@ -131,10 +134,10 @@ export class AuthService {
                     console.log('Refresh-Zähler aktualisiert:', newCount);
                     this.loginSuccess(response);
                 }),
-                catchError((err) => {
-                    console.error('Token-Erneuerung fehlgeschlagen', err);
+                catchError((error) => {
+                    console.error('Token-Erneuerung fehlgeschlagen', error);
                     this.logout();
-                    return throwError(() => err as unknown);
+                    return throwError(() => error as unknown);
                 }),
             );
     }
@@ -151,7 +154,7 @@ export class AuthService {
             return;
         }
 
-        const expiresIn = +expiration - new Date().getTime();
+        const expiresIn = +expiration - Date.now();
         if (expiresIn > 0) {
             const userData = localStorage.getItem('userData');
             if (userData) {
@@ -185,8 +188,7 @@ export class AuthService {
      * @param response Die `TokenResponse`, die die Access- und Refresh-Tokens enthält.
      */
     private saveTokens(response: TokenResponse): void {
-        const expirationDate =
-            new Date().getTime() + response.expires_in * 1000;
+        const expirationDate = Date.now() + response.expires_in * 1000;
         localStorage.setItem('access_token', response.access_token);
         localStorage.setItem('refreshToken', response.refresh_token);
         localStorage.setItem('authTokenExpiration', expirationDate.toString());
@@ -226,7 +228,7 @@ export class AuthService {
     private jwtDecode<T>(access_token: string): T {
         const payload = access_token.split('.')[1];
         // Ersetzt URL-sichere Base64-Zeichen zurück zu Standard Base64
-        const decoded = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
+        const decoded = atob(payload.replaceAll('-', '+').replaceAll('_', '/'));
         return JSON.parse(decoded) as T;
     }
 }

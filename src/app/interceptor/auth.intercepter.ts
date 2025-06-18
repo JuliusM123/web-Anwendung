@@ -12,17 +12,17 @@ import { AuthService } from '../service/auth.service';
  * wird der `Authorization`-Header mit dem Format `Bearer [Token]` gesetzt.
  * 3. Die modifizierte oder ursprüngliche Anfrage wird an den nächsten Handler in der Kette weitergeleitet.
  */
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
+export const authInterceptor: HttpInterceptorFn = (request, next) => {
     const authService = inject(AuthService);
     const authToken = authService.getToken();
 
-    if (authToken && !req.url.includes('/auth/')) {
-        const authReq = req.clone({
+    if (authToken && !request.url.includes('/auth/')) {
+        const authRequest = request.clone({
             setHeaders: {
                 Authorization: `Bearer ${authToken}`,
             },
         });
-        return next(authReq);
+        return next(authRequest);
     }
-    return next(req);
+    return next(request);
 };

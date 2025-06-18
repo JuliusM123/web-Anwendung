@@ -67,7 +67,7 @@ export class SucheComponent {
     /** Referenz auf das HTML-Dialogelement für die Buchdetails. */
     @ViewChild('modalRef') modalRef!: ElementRef<HTMLDialogElement>;
     /** Das aktuell ausgewählte Buch, das im Modal angezeigt werden soll. */
-    public ausgewaehltesBuch: Buch | null = null;
+    public ausgewaehltesBuch: Buch | undefined = undefined;
 
     /**
      * Führt eine Suche nach Büchern basierend auf den angegebenen Kriterien durch.
@@ -86,16 +86,16 @@ export class SucheComponent {
         lieferbar: boolean | '',
     ): Promise<void> {
         console.log('Suchen wurde aufgerufen');
-        const params: Record<string, string | number | boolean> = {
+        const parameters: Record<string, string | number | boolean> = {
             page: this.page + 1,
             size: this.size,
         };
 
-        if (isbn) params['isbn'] = isbn;
-        if (titel) params['titel'] = titel;
-        if (rating) params['rating'] = rating;
-        if (buchart) params['art'] = buchart;
-        if (lieferbar !== '') params['lieferbar'] = lieferbar;
+        if (isbn) parameters['isbn'] = isbn;
+        if (titel) parameters['titel'] = titel;
+        if (rating) parameters['rating'] = rating;
+        if (buchart) parameters['art'] = buchart;
+        if (lieferbar !== '') parameters['lieferbar'] = lieferbar;
 
         try {
             const response = await firstValueFrom(
@@ -107,17 +107,17 @@ export class SucheComponent {
                         totalElements: number;
                         totalPages: number;
                     };
-                }>('/rest', { params }),
+                }>('/rest', { params: parameters }),
             );
             console.log('Antwort:', response);
 
             this.buecher = response.content ?? [];
             this.totalPages = response.page.totalPages ?? 1;
-        } catch (err) {
-            if (err instanceof HttpErrorResponse && err.status === 404) {
+        } catch (error) {
+            if (error instanceof HttpErrorResponse && error.status === 404) {
                 this.buecher = [];
             } else {
-                console.error('Fehler beim Suchen', err);
+                console.error('Fehler beim Suchen', error);
                 this.buecher = [];
             }
         }
@@ -171,6 +171,6 @@ export class SucheComponent {
      * Schließt den Modal-Dialog für die Buchdetails.
      */
     modalSchliessen(): void {
-        this.ausgewaehltesBuch = null;
+        this.ausgewaehltesBuch = undefined;
     }
 }

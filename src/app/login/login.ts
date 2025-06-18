@@ -46,9 +46,9 @@ export class LoginComponent {
     /** Die Fehlermeldung, die dem Benutzer angezeigt wird. */
     loginErrorMessage = '';
     /** Speichert die HTTP-Fehlerantwort, falls ein Fehler auftritt. */
-    error: HttpErrorResponse | null = null;
+    error: HttpErrorResponse | undefined = undefined;
     /** Der HTTP-Antwortstatuscode. */
-    responseStatus: number | null = null;
+    responseStatus: number | undefined = undefined;
 
     /**
      * Führt den Anmeldevorgang aus.
@@ -79,17 +79,12 @@ export class LoginComponent {
                     void this.#router.navigate(['/home']);
                 }, 1000);
             }
-        } catch (err) {
-            if (
-                err instanceof HttpErrorResponse &&
-                (err.status === 401 || err.status === 403)
-            ) {
-                this.loginErrorMessage =
-                    'Benutzername oder Passwort ist falsch.';
-            } else {
-                this.loginErrorMessage =
-                    'Ein unerwarteter Fehler ist aufgetreten.';
-            }
+        } catch (error) {
+            this.loginErrorMessage =
+                error instanceof HttpErrorResponse &&
+                (error.status === 401 || error.status === 403)
+                    ? 'Benutzername oder Passwort ist falsch.'
+                    : 'Ein unerwarteter Fehler ist aufgetreten.';
             const modal = this.errorModal?.nativeElement;
             if (modal instanceof HTMLDialogElement) {
                 modal.showModal();
