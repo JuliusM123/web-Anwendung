@@ -144,5 +144,6 @@ describe('LoginComponent', () => {
         fixture.detectChanges();
         expect(component.loginErrorMessage).toBe(
             'Ein unerwarteter Fehler ist aufgetreten.',
-        );    }));
+        );
+    }));
 });
