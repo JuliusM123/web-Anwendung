@@ -4,7 +4,6 @@ import {
     provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import {
-    HTTP_INTERCEPTORS,
     HttpClient,
     provideHttpClient,
     withInterceptors,
@@ -12,15 +11,26 @@ import {
 import { AuthService } from '../service/auth.service';
 import { authInterceptor } from './auth.intercepter';
 
+/**
+ * Test-Suite für den `authInterceptor`.
+ * Überprüft das Verhalten des Interceptors beim Hinzufügen des
+ * `Authorization`-Headers zu HTTP-Anfragen.
+ */
 describe('authInterceptor', () => {
     let httpTestingController: HttpTestingController;
     let httpClient: HttpClient;
     let authService: AuthService;
 
+    /** Ein Mock für den `AuthService` zur Simulation des Token-Verhaltens. */
     const mockAuthService = {
         getToken: () => 'mein-dummy-token-123',
     };
 
+    /**
+     * Vor jedem Test wird die Testumgebung konfiguriert.
+     * Der `HttpClient` wird mit dem `authInterceptor` bereitgestellt
+     * und der `AuthService` wird mit dem Mock überschrieben.
+     */
     beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
@@ -38,10 +48,17 @@ describe('authInterceptor', () => {
         authService = TestBed.inject(AuthService);
     });
 
+    /**
+     * Nach jedem Test wird überprüft, ob keine ausstehenden HTTP-Anfragen vorhanden sind.
+     */
     afterEach(() => {
         httpTestingController.verify();
     });
 
+    /**
+     * Testfall: Der Interceptor sollte den `Authorization`-Header hinzufügen,
+     * wenn ein Token vorhanden ist und die URL nicht den Pfad "/auth/" enthält.
+     */
     it('sollte den Authorization-Header hinzufügen, wenn ein Token vorhanden ist und die URL nicht "/auth/" enthält', () => {
         const testUrl = '/api/data';
         const expectedToken = 'mein-dummy-token-123';
@@ -50,7 +67,6 @@ describe('authInterceptor', () => {
 
         const req = httpTestingController.expectOne(testUrl);
 
-        // Überprüfe, ob der Header korrekt gesetzt wurde
         expect(req.request.headers.has('Authorization')).toBe(true);
         expect(req.request.headers.get('Authorization')).toBe(
             `Bearer ${expectedToken}`,
@@ -59,6 +75,10 @@ describe('authInterceptor', () => {
         req.flush({});
     });
 
+    /**
+     * Testfall: Der Interceptor sollte den `Authorization`-Header NICHT hinzufügen,
+     * wenn die URL den Pfad "/auth/" enthält (z.B. für Login- oder Refresh-Anfragen).
+     */
     it('sollte den Authorization-Header NICHT hinzufügen, wenn die URL "/auth/" enthält', () => {
         const testUrl = 'https://localhost:3000/auth/token';
 
@@ -71,6 +91,10 @@ describe('authInterceptor', () => {
         req.flush({});
     });
 
+    /**
+     * Testfall: Der Interceptor sollte den `Authorization`-Header NICHT hinzufügen,
+     * wenn der `AuthService` keinen Token zurückgibt.
+     */
     it('sollte den Authorization-Header NICHT hinzufügen, wenn kein Token vorhanden ist', () => {
         const testUrl = '/api/data';
 
