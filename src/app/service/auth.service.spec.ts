@@ -4,6 +4,7 @@ import {
     HttpTestingController,
 } from '@angular/common/http/testing';
 import { AuthService, TokenResponse, User } from './auth.service';
+import { provideHttpClient } from '@angular/common/http';
 
 const mockUser: User = {
     sub: '12345',
@@ -52,7 +53,12 @@ describe('AuthService', () => {
         spyOn(console, 'error');
 
         TestBed.configureTestingModule({
-            providers: [AuthService, provideHttpClientTesting()],
+            imports: [],
+            providers: [
+                AuthService,
+                provideHttpClientTesting(),
+                provideHttpClient(),
+            ],
         });
 
         service = TestBed.inject(AuthService);
