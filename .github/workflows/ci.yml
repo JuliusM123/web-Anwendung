@@ -35,5 +35,5 @@ jobs:
       - name: Build
         run: npm run build -- --configuration production
 
-    #- name: Test
-    #  run: npm run test -- --watch=false --browsers=ChromeHeadlessCI
+      - name: Test
+        run: npm run test -- --watch=false --browsers=ChromeHeadlessCI
