@@ -1,22 +1,39 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomeComponent } from './home';
 
+/**
+ * Test-Suite für die HomeComponent.
+ */
 describe('HomeComponent', () => {
-    let component: HomeComponent;
-    let fixture: ComponentFixture<HomeComponent>;
+  let component: HomeComponent;
+  let fixture: ComponentFixture<HomeComponent>;
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
-            imports: [HomeComponent],
-        }).compileComponents();
+  /**
+   * Richtet die Testumgebung vor jedem Test ein.
+   */
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HomeComponent]
+    }).compileComponents();
 
-        fixture = TestBed.createComponent(HomeComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+    fixture = TestBed.createComponent(HomeComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+  /**
+   * Erwartet, dass die Komponente erfolgreich erstellt wird.
+   */
+  it('sollte erstellt werden', () => {
+    expect(component).toBeTruthy();
+  });
+
+  /**
+   * Erwartet, dass die Timeleft-Komponente im Template gerendert wird.
+   */
+  it('sollte die Timeleft-Komponente im Template rendern', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    const timeleftElement = compiled.querySelector('app-timeleft');
+    expect(timeleftElement).not.toBeNull();
+  });
 });

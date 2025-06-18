@@ -4,16 +4,16 @@ import { AuthService } from './service/auth.service';
 import { provideRouter } from '@angular/router';
 
 /**
- * @description Ein einfacher Mock für den AuthService, um ihn im Test zu ersetzen.
+ * Ein einfacher Mock für den AuthService, um ihn im Test zu ersetzen.
  */
 class MockAuthService {}
 
 /**
- * @description Test-Suite für die AppComponent.
+ * Test-Suite für die AppComponent.
  */
 describe('AppComponent', () => {
   /**
-   * @description Richtet die Testumgebung vor jedem einzelnen Testlauf ein.
+   * Richtet die Testumgebung vor jedem einzelnen Testlauf ein.
    * Konfiguriert das Angular TestBed mit den notwendigen Imports und Providern.
    */
   beforeEach(async () => {
@@ -29,28 +29,28 @@ describe('AppComponent', () => {
   });
 
   /**
-   * @description Testet, ob die AppComponent erfolgreich instanziiert werden kann.
+   * Testet, ob die AppComponent erfolgreich instanziiert werden kann.
    */
-  it('should create the app', () => {
+  it('sollte die AppComponent erstellen', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
   /**
-   * @description Überprüft, ob die `title`-Eigenschaft der Komponente den korrekten Wert 'web-Anwendung' hat.
+   * Überprüft, ob die `title`-Eigenschaft der Komponente den korrekten Wert 'web-Anwendung' hat.
    */
-  it(`should have the 'web-Anwendung' title`, () => {
+  it('sollte den Titel "web-Anwendung" haben', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('web-Anwendung');
   });
 
   /**
-   * @description Verifiziert, dass der `AuthService` korrekt in die Komponente injiziert wird
+   * Verifiziert, dass der `AuthService` korrekt in die Komponente injiziert wird
    * und eine Instanz des `MockAuthService` ist.
    */
-  it('should inject the AuthService', () => {
+  it('sollte den AuthService injizieren', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.authService).toBeTruthy();
