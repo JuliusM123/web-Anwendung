@@ -73,8 +73,8 @@ describe('AnlegenComponent', () => {
         expect(component.isJavascriptChecked).toBe(true);
         expect(component.isTypescriptChecked).toBe(true);
         expect(component.schlagwoerter).toEqual([]);
-        expect(component.error).toBeNull();
-        expect(component.responseStatus).toBeNull();
+        expect(component.error).toBeUndefined();
+        expect(component.responseStatus).toBeUndefined();
     });
 
     /**
@@ -112,7 +112,7 @@ describe('AnlegenComponent', () => {
         await promise;
 
         expect(component.responseStatus?.status).toBe(201);
-        expect(component.error).toBeNull();
+        expect(component.error).toBeUndefined();
         expect(component.responseStatus).not.toBeNull();
     });
 
@@ -142,7 +142,7 @@ describe('AnlegenComponent', () => {
 
         expect(component.error).toBeInstanceOf(HttpErrorResponse);
         expect(component.error?.status).toBe(500);
-        expect(component.responseStatus).toBeNull();
+        expect(component.responseStatus).toBeUndefined();
     });
 
     /**
@@ -212,8 +212,8 @@ describe('AnlegenComponent', () => {
             statusText: 'Internal Server Error',
         });
         await promise;
-        expect(component.error).not.toBeNull();
-        expect(component.responseStatus).toBeNull();
+        expect(component.error).not.toBeUndefined();
+        expect(component.responseStatus).toBeUndefined();
 
         component.titel = 'Erfolgsbuch';
         component.isbn = '222';
@@ -222,7 +222,7 @@ describe('AnlegenComponent', () => {
         req.flush({}, { status: 201, statusText: 'Created' });
         await promise;
 
-        expect(component.error).toBeNull();
+        expect(component.error).toBeUndefined();
         expect(component.responseStatus?.status).toBe(201);
     });
 });
