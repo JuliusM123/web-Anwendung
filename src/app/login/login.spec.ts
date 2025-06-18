@@ -14,6 +14,9 @@ import { Router } from '@angular/router';
 import { LoginComponent } from './login';
 import { AuthService, TokenResponse } from '../service/auth.service';
 
+/**
+ * Test suite for the LoginComponent.
+ */
 describe('LoginComponent', () => {
     let component: LoginComponent;
     let fixture: ComponentFixture<LoginComponent>;
@@ -21,6 +24,9 @@ describe('LoginComponent', () => {
     let authService: jasmine.SpyObj<AuthService>;
     let router: jasmine.SpyObj<Router>;
 
+    /**
+     * Mock token response for successful login scenarios.
+     */
     const mockTokenResponse: TokenResponse = {
         access_token: 'mock-access-token',
         refresh_token: 'mock-refresh-token',
@@ -29,6 +35,10 @@ describe('LoginComponent', () => {
         token_type: 'Bearer',
     };
 
+    /**
+     * Asynchronous setup for each test.
+     * Configures the testing module and creates component and service spies.
+     */
     beforeEach(async () => {
         const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
         const authServiceSpy = jasmine.createSpyObj('AuthService', [
@@ -63,14 +73,26 @@ describe('LoginComponent', () => {
         );
     });
 
+    /**
+     * Verifies that no outstanding HTTP requests are pending after each test.
+     */
     afterEach(() => {
         httpBackend.verify();
     });
 
+    /**
+     * Test case to ensure the component is successfully created.
+     */
     it('should create', () => {
         expect(component).toBeTruthy();
     });
 
+    /**
+     * Test case for successful login:
+     * - Verifies that the success modal is shown.
+     * - Verifies navigation to the home page.
+     * - Uses `fakeAsync` and `tick` to simulate asynchronous operations.
+     */
     it('should show success modal and navigate on successful login', fakeAsync(() => {
         component.login();
 
@@ -89,6 +111,12 @@ describe('LoginComponent', () => {
         expect(router.navigate).toHaveBeenCalledWith(['/home']);
     }));
 
+    /**
+     * Test case for 401 Unauthorized error during login:
+     * - Verifies that the error message for incorrect credentials is set.
+     * - Verifies that the error modal is shown.
+     * - Uses `async` and `whenStable` for asynchronous operations.
+     */
     it('should show error modal on 401 error', async () => {
         component.login();
 
@@ -107,6 +135,12 @@ describe('LoginComponent', () => {
         expect(component.errorModal.nativeElement.showModal).toHaveBeenCalled();
     });
 
+    /**
+     * Test case for generic server error (e.g., 500 Internal Server Error) during login:
+     * - Verifies that the generic error message is set.
+     * - Verifies that the error modal is shown.
+     * - Uses `async` and `whenStable` for asynchronous operations.
+     */
     it('should show generic error modal on server error', async () => {
         component.login();
 
