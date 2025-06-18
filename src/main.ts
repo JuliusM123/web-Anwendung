@@ -11,4 +11,4 @@ import { AppComponent } from './app/app';
  *
  * Wenn beim Starten der Anwendung ein Fehler auftritt, wird dieser in der Konsole ausgegeben.
  */
-bootstrapApplication(AppComponent, appConfig);
+void bootstrapApplication(AppComponent, appConfig).catch(err => console.error(err));
