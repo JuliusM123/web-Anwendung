@@ -66,7 +66,7 @@ export class AuthService {
      */
     public loginSuccess(response: TokenResponse): void {
         try {
-            const user = jwtDecode<User>(response.access_token);
+            const user = this.jwtDecode<User>(response.access_token);
             this.saveTokens(response);
             this.currentUserSource.next(user);
             this.loggedin.next(true);
@@ -191,7 +191,7 @@ export class AuthService {
         localStorage.setItem('refreshToken', response.refresh_token);
         localStorage.setItem('authTokenExpiration', expirationDate.toString());
 
-        const user = jwtDecode<User>(response.access_token);
+        const user = this.jwtDecode<User>(response.access_token);
         localStorage.setItem('userData', JSON.stringify(user));
     }
 
@@ -218,16 +218,15 @@ export class AuthService {
     public isLoggedIn(): boolean {
         return !!this.getToken();
     }
-}
-
-/**
- * Dekodiert einen JWT (JSON Web Token) und gibt dessen Payload als Typ `T` zurück.
- * @param access_token Der zu dekodierende JWT.
- * @returns Der dekodierte Payload des JWTs als Typ `T`.
- */
-function jwtDecode<T>(access_token: string): T {
-    const payload = access_token.split('.')[1];
-    // Ersetzt URL-sichere Base64-Zeichen zurück zu Standard Base64
-    const decoded = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
-    return JSON.parse(decoded) as T;
+    /**
+     * Dekodiert einen JWT (JSON Web Token) und gibt dessen Payload als Typ `T` zurück.
+     * @param access_token Der zu dekodierende JWT.
+     * @returns Der dekodierte Payload des JWTs als Typ `T`.
+     */
+    private jwtDecode<T>(access_token: string): T {
+        const payload = access_token.split('.')[1];
+        // Ersetzt URL-sichere Base64-Zeichen zurück zu Standard Base64
+        const decoded = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
+        return JSON.parse(decoded) as T;
+    }
 }

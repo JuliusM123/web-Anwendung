@@ -7,12 +7,15 @@ import {
 import {
     HttpClientTestingModule,
     HttpTestingController,
+    provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { LoginComponent } from './login';
 import { AuthService, TokenResponse } from '../service/auth.service';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from '../interceptor/auth.intercepter';
 
 /**
  * Test suite for the LoginComponent.
@@ -46,10 +49,12 @@ describe('LoginComponent', () => {
         ]);
 
         await TestBed.configureTestingModule({
-            imports: [LoginComponent, FormsModule, HttpClientTestingModule],
+            imports: [LoginComponent, FormsModule],
             providers: [
                 { provide: AuthService, useValue: authServiceSpy },
                 { provide: Router, useValue: routerSpy },
+                provideHttpClientTesting(),
+                provideHttpClient(withInterceptors([authInterceptor])),
             ],
         }).compileComponents();
 

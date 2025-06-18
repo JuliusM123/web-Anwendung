@@ -2,11 +2,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
     HttpClientTestingModule,
     HttpTestingController,
+    provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { AnlegenComponent } from './anlegen';
 import { FormsModule } from '@angular/forms';
-import { HttpErrorResponse } from '@angular/common/http';
+import {
+    HttpErrorResponse,
+    provideHttpClient,
+    withInterceptors,
+} from '@angular/common/http';
 import Decimal from 'decimal.js';
+import { authInterceptor } from '../interceptor/auth.intercepter';
 
 describe('AnlegenComponent', () => {
     let component: AnlegenComponent;
@@ -15,8 +21,11 @@ describe('AnlegenComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [AnlegenComponent, FormsModule, HttpClientTestingModule], // AnlegenComponent ist standalone
-            // providers: [] // Keine zusätzlichen Provider nötig, da HttpClientTestingModule bereitgestellt wird
+            imports: [AnlegenComponent, FormsModule], // AnlegenComponent ist standalone
+            providers: [
+                provideHttpClientTesting(),
+                provideHttpClient(withInterceptors([authInterceptor])), // HttpClient für API-Anfragen
+            ], // Keine zusätzlichen Provider nötig, da HttpClientTestingModule bereitgestellt wird
         }).compileComponents();
 
         fixture = TestBed.createComponent(AnlegenComponent);

@@ -1,10 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import {
-    provideHttpClientTesting,
+    HttpClientTestingModule,
     HttpTestingController,
+    provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { AuthService, TokenResponse, User } from './auth.service';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, HttpClient } from '@angular/common/http';
+import { authInterceptor } from '../interceptor/auth.intercepter';
 
 const mockUser: User = {
     sub: '12345',
@@ -22,8 +24,9 @@ const MOCK_VALID_JWT = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${mockJwtPayload}.d
  * und dem Refresh-Mechanismus getestet.
  */
 describe('AuthService', () => {
-    let service: AuthService;
     let httpTestingController: HttpTestingController;
+    let httpClient: HttpClient;
+    let authService: AuthService;
     let localStorageMock: { [key: string]: string };
 
     const mockTokenResponse: TokenResponse = {
@@ -53,16 +56,17 @@ describe('AuthService', () => {
         spyOn(console, 'error');
 
         TestBed.configureTestingModule({
-            imports: [],
             providers: [
-                AuthService,
+                provideHttpClient(withInterceptors([authInterceptor])),
                 provideHttpClientTesting(),
-                provideHttpClient(),
+                AuthService,
+
             ],
         });
 
-        service = TestBed.inject(AuthService);
+        authService = TestBed.inject(AuthService);
         httpTestingController = TestBed.inject(HttpTestingController);
+        httpClient = TestBed.inject(HttpClient);
     });
 
     /**
@@ -76,7 +80,7 @@ describe('AuthService', () => {
      * Testfall: Überprüft, ob der Dienst erfolgreich erstellt werden kann.
      */
     it('sollte erstellt werden', () => {
-        expect(service).toBeTruthy();
+        expect(authService).toBeTruthy();
     });
 
     /**
@@ -85,13 +89,13 @@ describe('AuthService', () => {
      * und die Tokens im `localStorage` gespeichert sind.
      */
     it('loginSuccess sollte Benutzerdaten aktualisieren und Tokens speichern', () => {
-        service.loginSuccess(mockTokenResponse);
+        authService.loginSuccess(mockTokenResponse);
 
-        service.currentUser$.subscribe((user) => {
+        authService.currentUser$.subscribe((user) => {
             expect(user).toEqual(mockUser);
         });
 
-        service.isLoggedIn$.subscribe((isLoggedIn) => {
+        authService.isLoggedIn$.subscribe((isLoggedIn) => {
             expect(isLoggedIn).toBe(true);
         });
 
@@ -109,14 +113,14 @@ describe('AuthService', () => {
      * und `localStorage.clear` aufgerufen wurde.
      */
     it('logout sollte Benutzerdaten und localStorage zurücksetzen', () => {
-        service.loginSuccess(mockTokenResponse);
-        service.logout();
+        authService.loginSuccess(mockTokenResponse);
+        authService.logout();
 
-        service.currentUser$.subscribe((user) => {
+        authService.currentUser$.subscribe((user) => {
             expect(user).toBeNull();
         });
 
-        service.isLoggedIn$.subscribe((isLoggedIn) => {
+        authService.isLoggedIn$.subscribe((isLoggedIn) => {
             expect(isLoggedIn).toBe(false);
         });
 
@@ -132,7 +136,7 @@ describe('AuthService', () => {
         localStorage.setItem('refreshToken', 'initial-refresh-token');
         localStorage.setItem('refreshCount', '0');
 
-        service.refreshToken()?.subscribe();
+        authService.refreshToken()?.subscribe();
 
         const req = httpTestingController.expectOne(
             'https://localhost:3000/auth/refresh',
@@ -159,7 +163,7 @@ describe('AuthService', () => {
         localStorage.setItem('refreshToken', 'initial-refresh-token');
         localStorage.setItem('refreshCount', '0');
 
-        service.refreshToken()?.subscribe({
+        authService.refreshToken()?.subscribe({
             error: (err) => {
                 expect(err).toBeTruthy();
             },
@@ -173,10 +177,10 @@ describe('AuthService', () => {
             { status: 401, statusText: 'Unauthorized' },
         );
 
-        service.isLoggedIn$.subscribe((isLoggedIn) => {
+        authService.isLoggedIn$.subscribe((isLoggedIn) => {
             expect(isLoggedIn).toBe(false);
         });
-        service.currentUser$.subscribe((user) => {
+        authService.currentUser$.subscribe((user) => {
             expect(user).toBeNull();
         });
         expect(localStorage.clear).toHaveBeenCalled();
