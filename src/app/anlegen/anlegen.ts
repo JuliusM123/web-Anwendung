@@ -55,9 +55,9 @@ export class AnlegenComponent {
     /** Gibt an, ob das Buch lieferbar ist. */
     lieferbar = false;
     /** Speichert einen `HttpErrorResponse` im Falle eines Fehlers. */
-    error: HttpErrorResponse | null = null;
+    error: HttpErrorResponse | undefined = undefined;
     /** Speichert die HTTP-Antwort bei Erfolg. */
-    responseStatus: HttpResponse<unknown> | null = null;
+    responseStatus: HttpResponse<unknown> | undefined = undefined;
 
     /** Steuert, ob das Schlagwort 'JAVASCRIPT' ausgewählt ist. */
     isJavascriptChecked = true;
@@ -70,8 +70,8 @@ export class AnlegenComponent {
      * Behandelt Erfolgs- und Fehlermeldungen und aktualisiert die UI.
      */
     async buchSenden() {
-        this.responseStatus = null;
-        this.error = null;
+        this.responseStatus = undefined;
+        this.error = undefined;
         this.#cdr.detectChanges();
 
         const schlagwoerter: string[] = [];
@@ -114,12 +114,16 @@ export class AnlegenComponent {
             );
             console.log('Buch erfolgreich angelegt:', response.status);
             this.responseStatus = response;
-        } catch (err) {
-            if (err instanceof HttpErrorResponse) {
-                this.error = err;
-                console.error('Fehler beim Anlegen:', err.status, err.message);
+        } catch (error) {
+            if (error instanceof HttpErrorResponse) {
+                this.error = error;
+                console.error(
+                    'Fehler beim Anlegen:',
+                    error.status,
+                    error.message,
+                );
             } else {
-                console.error('Unbekannter Fehler:', err);
+                console.error('Unbekannter Fehler:', error);
             }
         } finally {
             this.#cdr.detectChanges();
