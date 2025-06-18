@@ -14,39 +14,55 @@ import {
 import Decimal from 'decimal.js';
 import { authInterceptor } from '../interceptor/auth.intercepter';
 
+/**
+ * Test suite for the AnlegenComponent.
+ */
 describe('AnlegenComponent', () => {
     let component: AnlegenComponent;
     let fixture: ComponentFixture<AnlegenComponent>;
     let httpTestingController: HttpTestingController;
     let httpClient: HttpClient;
 
+    /**
+     * Sets up the test environment before each test case.
+     * Configures the TestBed with necessary imports and providers,
+     * creates the component instance, and injects testing utilities.
+     */
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [AnlegenComponent, FormsModule],
             providers: [
                 provideHttpClient(withInterceptors([authInterceptor])),
                 provideHttpClientTesting(),
-            ], // Keine zusätzlichen Provider nötig, da HttpClientTestingModule bereitgestellt wird
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(AnlegenComponent);
         component = fixture.componentInstance;
         httpTestingController = TestBed.inject(HttpTestingController);
         httpClient = TestBed.inject(HttpClient);
-        fixture.detectChanges(); // Initialisiert die Komponente und bindet Daten
+        fixture.detectChanges();
     });
 
+    /**
+     * Verifies that there are no outstanding HTTP requests after each test.
+     */
     afterEach(() => {
-        // Überprüfen, ob keine unerwarteten HTTP-Anfragen ausstehen
         httpTestingController.verify();
     });
 
-    // --- Testfälle ---
-
+    /**
+     * @test {AnlegenComponent}
+     * Tests if the component instance is created successfully.
+     */
     it('sollte erstellt werden', () => {
         expect(component).toBeTruthy();
     });
 
+    /**
+     * @test {AnlegenComponent}
+     * Tests if the component's properties are initialized with the correct default values.
+     */
     it('sollte die Standardwerte korrekt initialisieren', () => {
         expect(component.titel).toBe('');
         expect(component.isbn).toBe('');
@@ -56,13 +72,18 @@ describe('AnlegenComponent', () => {
         expect(component.lieferbar).toBe(false);
         expect(component.isJavascriptChecked).toBe(true);
         expect(component.isTypescriptChecked).toBe(true);
-        expect(component.schlagwoerter).toEqual([]); // Schlagwörter werden erst in buchSenden gesetzt
+        expect(component.schlagwoerter).toEqual([]);
         expect(component.error).toBeNull();
         expect(component.responseStatus).toBeNull();
     });
 
+    /**
+     * @test {AnlegenComponent#buchSenden}
+     * Tests the successful creation of a book.
+     * It verifies that the correct POST request is sent and that the component's state
+     * is updated accordingly on a successful response.
+     */
     it('sollte ein Buch erfolgreich anlegen und den Status setzen', async () => {
-        // Testdaten vorbereiten
         component.titel = 'Testbuch';
         component.isbn = '978-1234567890';
         component.preis = 19.99;
@@ -70,68 +91,66 @@ describe('AnlegenComponent', () => {
         component.lieferbar = true;
         component.homepage = 'http://test.com';
         component.isJavascriptChecked = true;
-        component.isTypescriptChecked = false; // Nur JAVASCRIPT
+        component.isTypescriptChecked = false;
 
-        // buchSenden asynchron aufrufen
         const promise = component.buchSenden();
 
-        // Erwarte eine POST-Anfrage an die API
         const req = httpTestingController.expectOne('https://localhost:3000/rest');
         expect(req.request.method).toEqual('POST');
         expect(req.request.body.titel.titel).toEqual('Testbuch');
         expect(req.request.body.isbn).toEqual('978-1234567890');
-        expect(req.request.body.preis).toEqual(new Decimal(19.99)); // Decimal Vergleich
-        expect(req.request.body.rabatt).toEqual(new Decimal(0.1)); // Rabatt als Decimal.div(100)
+        expect(req.request.body.preis).toEqual(new Decimal(19.99));
+        expect(req.request.body.rabatt).toEqual(new Decimal(0.1));
         expect(req.request.body.lieferbar).toEqual(true);
         expect(req.request.body.homepage).toEqual('http://test.com');
         expect(req.request.body.schlagwoerter).toEqual(['JAVASCRIPT']);
 
-        // Simuliere eine erfolgreiche Antwort vom Server
         req.flush({}, { status: 201, statusText: 'Created' });
 
-        // Warte, bis der Promise aufgelöst ist
         await promise;
 
-        // Überprüfe, ob der responseStatus gesetzt wurde und der Fehler null ist
         expect(component.responseStatus?.status).toBe(201);
         expect(component.error).toBeNull();
         expect(component.responseStatus).not.toBeNull();
     });
 
+    /**
+     * @test {AnlegenComponent#buchSenden}
+     * Tests the error handling when an API request fails.
+     * It simulates a server error and verifies that the component's error state is set correctly.
+     */
     it('sollte einen Fehler bei fehlgeschlagener API-Anfrage behandeln', async () => {
-        // Testdaten vorbereiten (nicht alle Felder nötig für Fehlertest, aber gute Praxis)
         component.titel = 'Fehlerbuch';
         component.isbn = '111';
 
         const promise = component.buchSenden();
 
-        // Erwarte eine POST-Anfrage
         const req = httpTestingController.expectOne(
             'https://localhost:3000/rest',
         );
         expect(req.request.method).toEqual('POST');
 
-        // Simuliere eine Fehlerantwort vom Server
         const mockError = new ProgressEvent('error');
         req.error(mockError, {
             status: 500,
             statusText: 'Internal Server Error',
         });
 
-        // Warte, bis der Promise aufgelöst ist (catch-Block ausgeführt)
         await promise;
 
-        // Überprüfe, ob der Fehler gesetzt wurde und der responseStatus null ist
         expect(component.error).toBeInstanceOf(HttpErrorResponse);
         expect(component.error?.status).toBe(500);
         expect(component.responseStatus).toBeNull();
     });
 
+    /**
+     * @test {AnlegenComponent#buchSenden}
+     * Tests that the keywords (`schlagwoerter`) are set correctly based on the state of the checkboxes.
+     */
     it('sollte die Schlagwörter basierend auf Checkboxen korrekt setzen', async () => {
         component.titel = 'Schlagworttest';
         component.isbn = '123';
 
-        // Fall 1: Beide ausgewählt
         component.isJavascriptChecked = true;
         component.isTypescriptChecked = true;
         let promise = component.buchSenden();
@@ -144,9 +163,8 @@ describe('AnlegenComponent', () => {
             'JAVASCRIPT',
             'TYPESCRIPT',
         ]);
-        httpTestingController.verify(); // Alle Anfragen von diesem Testfall verifizieren
+        httpTestingController.verify();
 
-        // Fall 2: Nur JAVASCRIPT
         component.isJavascriptChecked = true;
         component.isTypescriptChecked = false;
         promise = component.buchSenden();
@@ -156,7 +174,6 @@ describe('AnlegenComponent', () => {
         expect(req.request.body.schlagwoerter).toEqual(['JAVASCRIPT']);
         httpTestingController.verify();
 
-        // Fall 3: Nur TYPESCRIPT
         component.isJavascriptChecked = false;
         component.isTypescriptChecked = true;
         promise = component.buchSenden();
@@ -166,7 +183,6 @@ describe('AnlegenComponent', () => {
         expect(req.request.body.schlagwoerter).toEqual(['TYPESCRIPT']);
         httpTestingController.verify();
 
-        // Fall 4: Keine ausgewählt
         component.isJavascriptChecked = false;
         component.isTypescriptChecked = false;
         promise = component.buchSenden();
@@ -177,8 +193,12 @@ describe('AnlegenComponent', () => {
         httpTestingController.verify();
     });
 
+    /**
+     * @test {AnlegenComponent#buchSenden}
+     * Tests that the `error` and `responseStatus` properties are correctly reset
+     * when a new submission is made after a previous one.
+     */
     it('sollte `error` und `responseStatus` bei erneutem Senden zurücksetzen', async () => {
-        // Zuerst einen Fehler provozieren
         component.titel = 'Fehlerbuch';
         component.isbn = '111';
         let promise = component.buchSenden();
@@ -193,7 +213,6 @@ describe('AnlegenComponent', () => {
         expect(component.error).not.toBeNull();
         expect(component.responseStatus).toBeNull();
 
-        // Dann erfolgreich senden und prüfen, ob vorherige Werte zurückgesetzt werden
         component.titel = 'Erfolgsbuch';
         component.isbn = '222';
         promise = component.buchSenden();
@@ -201,7 +220,7 @@ describe('AnlegenComponent', () => {
         req.flush({}, { status: 201, statusText: 'Created' });
         await promise;
 
-        expect(component.error).toBeNull(); // Sollte zurückgesetzt sein
-        expect(component.responseStatus?.status).toBe(201); // Sollte neu gesetzt sein
+        expect(component.error).toBeNull();
+        expect(component.responseStatus?.status).toBe(201);
     });
 });
