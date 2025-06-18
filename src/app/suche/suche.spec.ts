@@ -169,6 +169,6 @@ describe('SucheComponent', () => {
             schlagwoerter: ['TYPESCRIPT', 'JAVASCRIPT'],
         };
         component.modalSchliessen();
-        expect(component.ausgewaehltesBuch).toBeNull();
+        expect(component.ausgewaehltesBuch).toBeUndefined();
     });
 });

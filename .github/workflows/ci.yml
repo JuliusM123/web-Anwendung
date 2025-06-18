@@ -23,8 +23,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
 
-      - uses: browser-actions/setup-chrome@v1
-      - run: chrome --version    
+      - name: Chrome installieren
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
 
       - name: Install Dependencies
         run: npm ci

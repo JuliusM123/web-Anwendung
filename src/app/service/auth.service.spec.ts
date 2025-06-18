@@ -119,7 +119,7 @@ describe('AuthService', () => {
         authService.logout();
 
         authService.currentUser$.subscribe((user) => {
-            expect(user).toBeNull();
+            expect(user).toBeUndefined();
         });
 
         authService.isLoggedIn$.subscribe((isLoggedIn) => {
@@ -183,7 +183,7 @@ describe('AuthService', () => {
             expect(isLoggedIn).toBe(false);
         });
         authService.currentUser$.subscribe((user) => {
-            expect(user).toBeNull();
+            expect(user).toBeUndefined();
         });
         expect(localStorage.clear).toHaveBeenCalled();
     });
