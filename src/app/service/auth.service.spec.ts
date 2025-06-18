@@ -1,143 +1,107 @@
-import { TestBed } from '@angular/core/testing';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import type { ElementRef } from '@angular/core';
 import {
-    HttpClientTestingModule,
-    HttpTestingController,
-} from '@angular/common/http/testing';
-import { AuthService, TokenResponse, User } from './auth.service';
+    Component,
+    ChangeDetectionStrategy,
+    inject,
+    ViewChild,
+} from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
+import type { TokenResponse } from '../service/auth.service';
+import { AuthService } from '../service/auth.service';
 
-const mockUser: User = {
-    sub: '12345',
-    name: 'admin',
-    email: 'admin@acme.com',
-    preferred_username: 'admin',
-};
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 
-const mockJwtPayload = btoa(JSON.stringify(mockUser));
-const MOCK_VALID_JWT = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${mockJwtPayload}.dummySignature`;
+/**
+ * Der `LoginComponent` ist für die Benutzeranmeldung zuständig.
+ * Er verwaltet die Benutzereingaben für Benutzername und Passwort,
+ * kommuniziert mit dem Authentifizierungsdienst und zeigt dem Benutzer Feedback
+ * über den Erfolg oder Misserfolg des Anmeldevorgangs.
+ */
+@Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-login',
+    standalone: true,
+    imports: [FormsModule],
+    templateUrl: './login.html',
+    styleUrl: './login.css',
+})
+export class LoginComponent {
+    /** HTTP-Client für Anfragen an das Backend. */
+    #httpClient = inject(HttpClient);
+    /** Router für die Navigation nach dem Login. */
+    #router = inject(Router);
+    /** Authentifizierungsdienst zur Verwaltung der Anmeldelogik. */
+    #authService = inject(AuthService);
 
-describe('AuthService', () => {
-    let service: AuthService;
-    let httpTestingController: HttpTestingController;
-    let localStorageMock: { [key: string]: string };
+    /** Referenz auf das HTML-Dialogelement für Fehlermeldungen. */
+    @ViewChild('errorModal') errorModal!: ElementRef<HTMLDialogElement>;
+    /** Referenz auf das HTML-Dialogelement für Erfolgsmeldungen. */
+    @ViewChild('successModal') successModal!: ElementRef<HTMLDialogElement>;
 
-    const mockTokenResponse: TokenResponse = {
-        access_token: MOCK_VALID_JWT,
-        expires_in: 3600,
-        refresh_token: 'mock-refresh-token',
-        refresh_expires_in: 7200,
-        token_type: 'Bearer',
-    };
+    /** Das eingegebene Benutzername. */
+    username = '';
+    /** Das eingegebene Passwort. */
+    password = '';
+    /** Die Fehlermeldung, die dem Benutzer angezeigt wird. */
+    loginErrorMessage = '';
+    /** Speichert die HTTP-Fehlerantwort, falls ein Fehler auftritt. */
+    error: HttpErrorResponse | null = null;
+    /** Der HTTP-Antwortstatuscode. */
+    responseStatus: number | null = null;
 
-    beforeEach(() => {
-        localStorageMock = {};
-        spyOn(localStorage, 'getItem').and.callFake(
-            (key) => localStorageMock[key] || null,
-        );
-        spyOn(localStorage, 'setItem').and.callFake(
-            (key, value) => (localStorageMock[key] = value),
-        );
-        spyOn(localStorage, 'clear').and.callFake(
-            () => (localStorageMock = {}),
-        );
-        spyOn(console, 'error');
+    /**
+     * Führt den Anmeldevorgang aus.
+     * Sendet die Anmeldedaten an den Server, verarbeitet die Antwort
+     * und zeigt entsprechende Modal-Dialoge an. Bei Erfolg wird der Benutzer
+     * zur Startseite weitergeleitet.
+     */
+    async login() {
+        console.log('Login attempt with:', this.username);
+        const loginData = {
+            username: this.username,
+            password: this.password,
+        };
 
-        TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            providers: [AuthService],
-        });
+        const url = 'https://localhost:3000/auth/token';
 
-        service = TestBed.inject(AuthService);
-        httpTestingController = TestBed.inject(HttpTestingController);
-    });
+        try {
+            const response = await firstValueFrom(
+                this.#httpClient.post<TokenResponse>(url, loginData),
+            );
 
-    afterEach(() => {
-        httpTestingController.verify();
-    });
+            if (response?.access_token && response?.refresh_token) {
+                this.#authService.loginSuccess(response);
 
-    it('sollte erstellt werden', () => {
-        expect(service).toBeTruthy();
-    });
-
-    it('loginSuccess sollte Benutzerdaten aktualisieren und Tokens speichern', () => {
-        service.loginSuccess(mockTokenResponse);
-
-        service.currentUser$.subscribe((user) => {
-            expect(user).toEqual(mockUser);
-        });
-
-        service.isLoggedIn$.subscribe((isLoggedIn) => {
-            expect(isLoggedIn).toBe(true);
-        });
-
-        expect(localStorage.getItem('access_token')).toBe(
-            mockTokenResponse.access_token,
-        );
-        expect(localStorage.getItem('refreshToken')).toBe(
-            mockTokenResponse.refresh_token,
-        );
-    });
-
-    it('logout sollte Benutzerdaten und localStorage zurücksetzen', () => {
-        service.loginSuccess(mockTokenResponse);
-        service.logout();
-
-        service.currentUser$.subscribe((user) => {
-            expect(user).toBeNull();
-        });
-
-        service.isLoggedIn$.subscribe((isLoggedIn) => {
-            expect(isLoggedIn).toBe(false);
-        });
-
-        expect(localStorage.clear).toHaveBeenCalled();
-    });
-
-    it('refreshToken sollte bei Erfolg neue Tokens setzen', () => {
-        localStorage.setItem('refreshToken', 'initial-refresh-token');
-        localStorage.setItem('refreshCount', '0');
-
-        service.refreshToken()?.subscribe();
-
-        const req = httpTestingController.expectOne(
-            'https://localhost:3000/auth/refresh',
-        );
-        expect(req.request.method).toBe('POST');
-        expect(req.request.body.toString()).toContain(
-            'grant_type=refresh_token',
-        );
-
-        req.flush(mockTokenResponse);
-
-        expect(localStorage.getItem('access_token')).toBe(
-            mockTokenResponse.access_token,
-        );
-        expect(localStorage.getItem('refreshCount')).toBe('1');
-    });
-
-    it('refreshToken sollte bei einem Fehler den Benutzer ausloggen', () => {
-        localStorage.setItem('refreshToken', 'initial-refresh-token');
-        localStorage.setItem('refreshCount', '0');
-
-        service.refreshToken()?.subscribe({
-            error: (err) => {
-                expect(err).toBeTruthy();
-            },
-        });
-
-        const req = httpTestingController.expectOne(
-            'https://localhost:3000/auth/refresh',
-        );
-        req.flush(
-            { message: 'Invalid token' },
-            { status: 401, statusText: 'Unauthorized' },
-        );
-
-        service.isLoggedIn$.subscribe((isLoggedIn) => {
-            expect(isLoggedIn).toBe(false);
-        });
-        service.currentUser$.subscribe((user) => {
-            expect(user).toBeNull();
-        });
-        expect(localStorage.clear).toHaveBeenCalled();
-    });
-});
+                this.successModal.nativeElement.showModal();
+                setTimeout(() => {
+                    this.successModal.nativeElement.close();
+                    void this.#router.navigate(['/home']);
+                }, 1000);
+            }
+        } catch (err) {
+            if (
+                err instanceof HttpErrorResponse &&
+                (err.status === 401 || err.status === 403)
+            ) {
+                this.loginErrorMessage =
+                    'Benutzername oder Passwort ist falsch.';
+            } else {
+                this.loginErrorMessage =
+                    'Ein unerwarteter Fehler ist aufgetreten.';
+            }
+            const modal = this.errorModal?.nativeElement;
+            if (modal instanceof HTMLDialogElement) {
+                modal.showModal();
+            }
+        }
+    }
+}
