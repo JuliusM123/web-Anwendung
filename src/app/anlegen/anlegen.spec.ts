@@ -95,7 +95,9 @@ describe('AnlegenComponent', () => {
 
         const promise = component.buchSenden();
 
-        const req = httpTestingController.expectOne('https://localhost:3000/rest');
+        const req = httpTestingController.expectOne(
+            'https://localhost:3000/rest',
+        );
         expect(req.request.method).toEqual('POST');
         expect(req.request.body.titel.titel).toEqual('Testbuch');
         expect(req.request.body.isbn).toEqual('978-1234567890');

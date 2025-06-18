@@ -4,7 +4,11 @@ import {
     provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { AuthService, TokenResponse, User } from './auth.service';
-import { provideHttpClient, withInterceptors, HttpClient } from '@angular/common/http';
+import {
+    provideHttpClient,
+    withInterceptors,
+    HttpClient,
+} from '@angular/common/http';
 import { authInterceptor } from '../interceptor/auth.intercepter';
 
 const mockUser: User = {
