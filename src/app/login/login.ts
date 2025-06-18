@@ -12,6 +12,12 @@ import { firstValueFrom } from 'rxjs/internal/firstValueFrom';
 import type { TokenResponse } from '../service/auth.service';
 import { AuthService } from '../service/auth.service';
 
+/**
+ * Der `LoginComponent` ist für die Benutzeranmeldung zuständig.
+ * Er verwaltet die Benutzereingaben für Benutzername und Passwort,
+ * kommuniziert mit dem Authentifizierungsdienst und zeigt dem Benutzer Feedback
+ * über den Erfolg oder Misserfolg des Anmeldevorgangs.
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-login',
@@ -21,19 +27,35 @@ import { AuthService } from '../service/auth.service';
     styleUrl: './login.css',
 })
 export class LoginComponent {
+    /** HTTP-Client für Anfragen an das Backend. */
     #httpClient = inject(HttpClient);
+    /** Router für die Navigation nach dem Login. */
     #router = inject(Router);
+    /** Authentifizierungsdienst zur Verwaltung der Anmeldelogik. */
     #authService = inject(AuthService);
 
+    /** Referenz auf das HTML-Dialogelement für Fehlermeldungen. */
     @ViewChild('errorModal') errorModal!: ElementRef<HTMLDialogElement>;
+    /** Referenz auf das HTML-Dialogelement für Erfolgsmeldungen. */
     @ViewChild('successModal') successModal!: ElementRef<HTMLDialogElement>;
 
+    /** Das eingegebene Benutzername. */
     username = '';
+    /** Das eingegebene Passwort. */
     password = '';
+    /** Die Fehlermeldung, die dem Benutzer angezeigt wird. */
     loginErrorMessage = '';
+    /** Speichert die HTTP-Fehlerantwort, falls ein Fehler auftritt. */
     error: HttpErrorResponse | null = null;
+    /** Der HTTP-Antwortstatuscode. */
     responseStatus: number | null = null;
 
+    /**
+     * Führt den Anmeldevorgang aus.
+     * Sendet die Anmeldedaten an den Server, verarbeitet die Antwort
+     * und zeigt entsprechende Modal-Dialoge an. Bei Erfolg wird der Benutzer
+     * zur Startseite weitergeleitet.
+     */
     async login() {
         console.log('Login attempt with:', this.username);
         const loginData = {
