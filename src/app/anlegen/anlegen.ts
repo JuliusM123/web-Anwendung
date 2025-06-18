@@ -12,13 +12,11 @@ import { FormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
 
 /**
- * @Component AnlegenComponent
- * @description
- * This component provides a user interface for creating new books.
- * It allows users to input various details for a book such as title, ISBN,
- * price, rating, homepage, book type, and availability.
- * The new book data is then sent to a REST API via a POST request,
- * including an authorization token.
+ * Der `AnlegenComponent` bietet eine Benutzeroberfläche zum Erstellen neuer Bücher.
+ * Benutzer können verschiedene Buchdetails wie Titel, ISBN, Preis, Bewertung,
+ * Homepage, Buchtyp und Verfügbarkeit eingeben.
+ * Die neuen Buchdaten werden dann per POST-Anfrage an eine REST-API gesendet,
+ * inklusive eines Autorisierungstokens.
  */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,26 +27,48 @@ import { firstValueFrom } from 'rxjs';
     styleUrl: './anlegen.css',
 })
 export class AnlegenComponent {
+    /** Der HTTP-Client für die Kommunikation mit der API. */
     #http = inject(HttpClient);
+    /** Der ChangeDetectorRef für die manuelle Änderungserkennung. */
     #cdr = inject(ChangeDetectorRef);
 
+    /** Das Feld für den Titel des Buches. */
     titel = '';
+    /** Das Feld für den Untertitel des Buches. */
     untertitel = '';
+    /** Das Feld für die ISBN des Buches. */
     isbn = '';
+    /** Ein Array von Schlagwörtern für das Buch. */
     schlagwoerter: string[] = [];
+    /** Der Preis des Buches. */
     preis = 0;
+    /** Der Rabatt in Prozent für das Buch. */
     rabatt = 0;
+    /** Das aktuelle Datum, formatiert als 'YYYY-MM-DD'. */
     datum = new Date().toISOString().split('T')[0]; // Format YYYY-MM-DD
+    /** Die Bewertung des Buches (Standard: 3). */
     rating = 3;
+    /** Die Homepage des Buches. */
     homepage = '';
+    /** Die Art des Buches (Standard: 'HARDCOVER'). */
     art: BuchArt = 'HARDCOVER';
+    /** Gibt an, ob das Buch lieferbar ist. */
     lieferbar = false;
+    /** Speichert einen `HttpErrorResponse` im Falle eines Fehlers. */
     error: HttpErrorResponse | null = null;
+    /** Speichert die HTTP-Antwort bei Erfolg. */
     responseStatus: HttpResponse<unknown> | null = null;
 
+    /** Steuert, ob das Schlagwort 'JAVASCRIPT' ausgewählt ist. */
     isJavascriptChecked = true;
+    /** Steuert, ob das Schlagwort 'TYPESCRIPT' ausgewählt ist. */
     isTypescriptChecked = true;
 
+    /**
+     * Sendet die Buchdaten an das Backend.
+     * Erstellt ein `Buch`-Objekt aus den Formulardaten und sendet es per POST-Anfrage.
+     * Behandelt Erfolgs- und Fehlermeldungen und aktualisiert die UI.
+     */
     async buchSenden() {
         this.responseStatus = null;
         this.error = null;
