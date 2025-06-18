@@ -1,0 +1,26 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "https://localhost:4200",
+      "localStorage": [
+        {
+          "name": "refreshToken",
+          "value": "eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkNTU4YWJmMy1kZDQwLTRlNDktODU2Ny1kY2Q5ZDBjNjUwNDgifQ.eyJleHAiOjE3NTAyNTE4NjgsImlhdCI6MTc1MDI0ODI2OCwianRpIjoiN2YzZDRkMjEtMDBlZi00NDJkLWJkNDgtYmMyOGVkYWJhYjhjIiwiaXNzIjoiaHR0cDovL2tleWNsb2FrOjgwODAvcmVhbG1zL25lc3QiLCJhdWQiOiJodHRwOi8va2V5Y2xvYWs6ODA4MC9yZWFsbXMvbmVzdCIsInN1YiI6ImM1MTY2OGRhLTBiYTUtNDdlMS05YTljLTQzZGFmMzdhZmQyNSIsInR5cCI6IlJlZnJlc2giLCJhenAiOiJuZXN0LWNsaWVudCIsInNpZCI6IjNkMWJmMWNlLTc4MTItNDEzYy04OGIwLWNlMDYzYjQ5MzhjZSIsInNjb3BlIjoiZW1haWwgd2ViLW9yaWdpbnMgYmFzaWMgcm9sZXMgYWNyIHByb2ZpbGUifQ.xIKHM2dV70qn1Rzra0TpPwr3WeiwotPdHm1-z8GSp6ahbRnb0tRiqCurjkcn8PB7Tsm9LFf6rGnKB2xhVpfUIg"
+        },
+        {
+          "name": "userData",
+          "value": "{\"exp\":1750248568,\"iat\":1750248268,\"jti\":\"onrtro:b3a92f51-ee86-440a-b3db-50ecedabca5e\",\"iss\":\"http://keycloak:8080/realms/nest\",\"aud\":\"account\",\"sub\":\"c51668da-0ba5-47e1-9a9c-43daf37afd25\",\"typ\":\"Bearer\",\"azp\":\"nest-client\",\"sid\":\"3d1bf1ce-7812-413c-88b0-ce063b4938ce\",\"acr\":\"1\",\"allowed-origins\":[\"https://localhost:3000\",\"https://oauth.pstmn.io\",\"https://auto:3000\"],\"realm_access\":{\"roles\":[\"offline_access\",\"uma_authorization\",\"default-roles-nest\"]},\"resource_access\":{\"nest-client\":{\"roles\":[\"admin\"]},\"account\":{\"roles\":[\"manage-account\",\"manage-account-links\",\"view-profile\"]}},\"scope\":\"email profile\",\"email_verified\":false,\"name\":\"Nest Admin\",\"preferred_username\":\"admin\",\"given_name\":\"Nest\",\"family_name\":\"Admin\",\"email\":\"admin@acme.com\"}"
+        },
+        {
+          "name": "access_token",
+          "value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJDZ1NOdmJRTjRvVGxCZktEbEM1OGZMcFA5NF9JNEFVYlhueWxydkFGQ1lvIn0.eyJleHAiOjE3NTAyNDg1NjgsImlhdCI6MTc1MDI0ODI2OCwianRpIjoib25ydHJvOmIzYTkyZjUxLWVlODYtNDQwYS1iM2RiLTUwZWNlZGFiY2E1ZSIsImlzcyI6Imh0dHA6Ly9rZXljbG9hazo4MDgwL3JlYWxtcy9uZXN0IiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImM1MTY2OGRhLTBiYTUtNDdlMS05YTljLTQzZGFmMzdhZmQyNSIsInR5cCI6IkJlYXJlciIsImF6cCI6Im5lc3QtY2xpZW50Iiwic2lkIjoiM2QxYmYxY2UtNzgxMi00MTNjLTg4YjAtY2UwNjNiNDkzOGNlIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwczovL2xvY2FsaG9zdDozMDAwIiwiaHR0cHM6Ly9vYXV0aC5wc3Rtbi5pbyIsImh0dHBzOi8vYXV0bzozMDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIiwiZGVmYXVsdC1yb2xlcy1uZXN0Il19LCJyZXNvdXJjZV9hY2Nlc3MiOnsibmVzdC1jbGllbnQiOnsicm9sZXMiOlsiYWRtaW4iXX0sImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6Ik5lc3QgQWRtaW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJhZG1pbiIsImdpdmVuX25hbWUiOiJOZXN0IiwiZmFtaWx5X25hbWUiOiJBZG1pbiIsImVtYWlsIjoiYWRtaW5AYWNtZS5jb20ifQ.kF6yDW0J-8fiZpWlzWQk_Th3-tpp4FH2sOCL1zwzAlcqIk_FUPt7kkBSYzmBqGYbUajQjldTTh3CP81eSGw7uAbuR8YlU8rOI0t8imZIKKDONukGz4cNOb2sqD7rrruz4jhe2amfVe9KWiSiAkmRRaTpfQGiyc676dD-rKct34z1UTdTBqkRpk2MJSIPsrizgU5-oCQdLJaki9zOvFdP7X7fLbJCEt1isnuQs3t9Q-Lafk-JMj3wDv3mfNQ0uR3sjIzgiM7Sz2TMjR8eYJ82nkAqWSbOOuTKuBfnR1Yv2TfLYr9g5U5Z9lgcIy2NN4lqmBuPB06_HCtvSp2lsK6rxA"
+        },
+        {
+          "name": "authTokenExpiration",
+          "value": "1750248568926"
+        }
+      ]
+    }
+  ]
+}
