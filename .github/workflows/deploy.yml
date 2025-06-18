@@ -17,7 +17,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build Angular App
-        run: npm run build -- --configuration web-Anwendung
+        run: npm run build -- --configuration production
       - name: Deploy to Server
         uses: appleboy/scp-action@master
         with:
