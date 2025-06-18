@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import {
-    HttpClientTestingModule,
+    provideHttpClientTesting,
     HttpTestingController,
 } from '@angular/common/http/testing';
 import { AuthService, TokenResponse, User } from './auth.service';
@@ -52,8 +52,7 @@ describe('AuthService', () => {
         spyOn(console, 'error');
 
         TestBed.configureTestingModule({
-            imports: [HttpClientTestingModule],
-            providers: [AuthService],
+            providers: [AuthService, provideHttpClientTesting()],
         });
 
         service = TestBed.inject(AuthService);
