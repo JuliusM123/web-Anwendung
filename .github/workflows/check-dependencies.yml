@@ -29,8 +29,3 @@ jobs:
         run: |
           echo "Outdated dependencies:"
           npm outdated || true
-
-      - name: Chrome installieren
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
