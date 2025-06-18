@@ -38,7 +38,7 @@ export class TimeleftComponent implements OnInit, OnDestroy {
     protected timeUpMessage = 'The time is up';
 
     /** Der Interval-Timer, der die Zeitaktualisierung steuert. */
-    #timerInterval: number | undefined;
+    #timerInterval: ReturnType<typeof setInterval> | undefined;
 
     /**
      * Wird beim Initialisieren der Komponente aufgerufen.
@@ -46,7 +46,7 @@ export class TimeleftComponent implements OnInit, OnDestroy {
      */
     ngOnInit(): void {
         this.#updateTimeRemaining();
-        this.#timerInterval = window.setInterval(() => {
+        this.#timerInterval = globalThis.setInterval(() => {
             this.#updateTimeRemaining();
         }, 1000);
     }
@@ -57,7 +57,7 @@ export class TimeleftComponent implements OnInit, OnDestroy {
      */
     ngOnDestroy(): void {
         if (this.#timerInterval) {
-            window.clearInterval(this.#timerInterval);
+            globalThis.clearInterval(this.#timerInterval);
         }
     }
 
