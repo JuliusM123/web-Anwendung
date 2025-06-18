@@ -4,19 +4,21 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from './service/auth.service';
 
 /**
- * @Component AppComponent
- * @description
- * The root component of the application.
+ * Die `AppComponent` ist die Wurzelkomponente der Anwendung.
+ * Sie dient als Layout-Container für die Hauptnavigation und die gerouteten Inhalte.
+ * Die `OnPush` Change Detection Strategy wird verwendet, um die Performance zu optimieren.
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'app-root',
-    standalone: true,
-    imports: [CommonModule, RouterOutlet, RouterLink],
-    templateUrl: './app.html',
-    styleUrl: './app.css',
+    changeDetection: ChangeDetectionStrategy.OnPush, // Optimiert die Änderungserkennung.
+    selector: 'app-root', // Der CSS-Selektor für diese Komponente.
+    standalone: true, // Markiert die Komponente als eigenständig.
+    imports: [CommonModule, RouterOutlet, RouterLink], // Importiert benötigte Module für Routing und allgemeine Direktiven.
+    templateUrl: './app.html', // Verweist auf die HTML-Template-Datei.
+    styleUrl: './app.css', // Verweist auf die CSS-Styling-Datei.
 })
 export class AppComponent {
+    /** Der Titel der Web-Anwendung. */
     title = 'web-Anwendung';
+    /** Der `AuthService` wird injiziert, um auf Authentifizierungsfunktionen zugreifen zu können. */
     authService = inject(AuthService);
 }
