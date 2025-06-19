@@ -9,7 +9,7 @@ import {
     withInterceptors,
 } from '@angular/common/http';
 import { AuthService } from '../service/auth.service';
-import { authInterceptor } from './auth.intercepter';
+import { authInterceptor } from './auth.interceptor';
 
 /**
  * Test-Suite für den `authInterceptor`.

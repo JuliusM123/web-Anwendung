@@ -20,7 +20,7 @@ import {
     provideHttpClient,
     withInterceptors,
 } from '@angular/common/http';
-import { authInterceptor } from '../interceptor/auth.intercepter';
+import { authInterceptor } from '../interceptor/auth.interceptor';
 
 /**
  * Test-Suite für die SucheComponent.
@@ -39,7 +39,7 @@ describe('SucheComponent', () => {
             imports: [SucheComponent, FormsModule, CommonModule],
             providers: [
                 provideHttpClient(withInterceptors([authInterceptor])),
-                provideHttpClientTesting(), // Hier können Interceptors hinzugefügt werden
+                provideHttpClientTesting(),
             ],
         }).compileComponents();
 

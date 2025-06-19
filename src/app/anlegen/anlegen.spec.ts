@@ -12,7 +12,7 @@ import {
     withInterceptors,
 } from '@angular/common/http';
 import Decimal from 'decimal.js';
-import { authInterceptor } from '../interceptor/auth.intercepter';
+import { authInterceptor } from '../interceptor/auth.interceptor';
 
 /**
  * Test suite for the AnlegenComponent.

@@ -4,15 +4,15 @@ Diese Anleitung beschreibt, wie die lokale Angular-Entwicklungsumgebung auf HTTP
 
 Wir verwenden das Tool `mkcert`, da es auf einfache Weise lokal vertrauenswürdige SSL-Zertifikate erstellt und so die üblichen Browser-Warnungen verhindert.
 
-Bitte befolge diese Schritte einmalig auf deinem Entwicklungsrechner.
+Bitte befolgen sie diese Schritte einmalig auf deinem Entwicklungsrechner.
 
 ## Schritt 1: `mkcert` installieren
 
-`mkcert` ist ein Kommandozeilen-Tool, das am besten über einen Paketmanager installiert wird. Wähle die passende Anleitung für dein Betriebssystem.
+`mkcert` ist ein Kommandozeilen-Tool, das am besten über einen Paketmanager installiert wird. Wählen sie die passende Anleitung für dein Betriebssystem.
 
 ### macOS (mit Homebrew)
 
-Wenn du Homebrew nicht hast, installiere es zuerst von [brew.sh](https://brew.sh).
+Wenn du Homebrew nicht hast, installieren sie zuerst von [brew.sh](https://brew.sh).
 
 ```bash
 brew install mkcert
@@ -20,7 +20,7 @@ brew install mkcert
 
 ### Windows (mit Winget oder Chocolatey)
 
-Du kannst einen der beiden gängigen Paketmanager für Windows verwenden. Winget ist in modernen Windows-Versionen oft bereits enthalten.
+Sie können einen der beiden gängigen Paketmanager für Windows verwenden. Winget ist in modernen Windows-Versionen oft bereits enthalten.
 
 **Mit Winget (empfohlen):**
 
@@ -52,23 +52,23 @@ sudo dnf install nss-tools
 brew install mkcert # Falls Homebrew auf Linux installiert ist, oder manuell von GitHub
 ```
 
-Für andere Distributionen, folge bitte der offiziellen [mkcert Installationsanleitung](https://github.com/FiloSottile/mkcert#installation).
+Für andere Distributionen, folgen sie bitte der offiziellen [mkcert Installationsanleitung](https://github.com/FiloSottile/mkcert#installation).
 
 ## Schritt 2: Lokale Certificate Authority (CA) einrichten
 
-Dieser Schritt installiert eine lokale CA im Vertrauensspeicher deines Systems und deiner Browser. Er muss nur **einmal pro Computer** ausgeführt werden.
+Dieser Schritt installiert eine lokale CA im Vertrauensspeicher ihres Systems und von ihrem Browser. Er muss nur **einmal pro Computer** ausgeführt werden.
 
-Öffne ein Terminal (unter Windows am besten als Administrator) und führe aus:
+Öffne sie ein Terminal (unter Windows am besten als Administrator) und führen sie es aus:
 
 ```bash
 mkcert -install
 ```
 
-Du solltest eine Erfolgsmeldung erhalten, dass die CA installiert wurde.
+Sie sollten eine Erfolgsmeldung erhalten, dass die CA installiert wurde.
 
 ## Schritt 3: Zertifikat für `localhost` generieren
 
-Navigiere im Terminal in das **Hauptverzeichnis dieses Projekts** und führe folgenden Befehl aus:
+Navigieren sie im Terminal in das **Hauptverzeichnis dieses Projekts** und führen sie folgenden Befehl aus:
 
 ```bash
 mkcert localhost
@@ -81,7 +81,7 @@ Dieser Befehl erstellt zwei Dateien direkt in deinem Projektordner:
 
 ## Abschließender Schritt: Server starten
 
-Nachdem du alle Schritte ausgeführt hast, starte den Angular-Entwicklungsserver neu:
+Nachdem alle Schritte ausgeführt wurden, starten sie den Angular-Entwicklungsserver neu:
 
 ```bash
 ng serve

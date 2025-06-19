@@ -2,16 +2,12 @@
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import angular from 'angular-eslint';
-// import eslintConfigPrettier from 'eslint-config-prettier';
 
-// Importieren Sie das unicorn-Plugin für ES-Module
 import eslintPluginUnicorn from 'eslint-plugin-unicorn';
 
-// Importieren Sie Node.js Module, um __dirname zu ersetzen
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
-// Definition des __dirname-Äquivalents für ES-Module
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -26,13 +22,12 @@ export default tseslint.config(
             ...tseslint.configs.recommendedTypeChecked,
             ...tseslint.configs.stylisticTypeChecked,
             ...angular.configs.tsRecommended,
-            eslintPluginUnicorn.configs.recommended, // Standardkonfiguration des Unicorn-Plugins
+            eslintPluginUnicorn.configs.recommended,
             // eslintConfigPrettier,
         ],
         languageOptions: {
             parserOptions: {
                 project: true,
-                // Korrektur: __dirname ist jetzt in ES-Modul-Scope definiert
                 tsconfigRootDir: __dirname,
             },
         },

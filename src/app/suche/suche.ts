@@ -11,20 +11,6 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ViewChild, ElementRef } from '@angular/core';
 
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
- * Die `SucheComponent` ermöglicht es Benutzern, nach Büchern zu suchen.
- * Sie bietet Filteroptionen wie Titel, ISBN, Bewertung, Buchart und Verfügbarkeit.
- * Die Suchergebnisse werden paginiert angezeigt, und Benutzer können zwischen den Seiten navigieren.
- * Außerdem kann ein ausgewähltes Buch in einem Modal-Dialog detailliert angezeigt werden.
- */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'app-suche',
