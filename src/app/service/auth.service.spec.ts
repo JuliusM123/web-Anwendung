@@ -9,7 +9,7 @@ import {
     withInterceptors,
     HttpClient,
 } from '@angular/common/http';
-import { authInterceptor } from '../interceptor/auth.intercepter';
+import { authInterceptor } from '../interceptor/auth.interceptor';
 
 const mockUser: User = {
     sub: '12345',
