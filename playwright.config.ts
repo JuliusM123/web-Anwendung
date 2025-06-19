@@ -1,7 +1,8 @@
 import { defineConfig, devices } from '@playwright/test';
-import path from 'path';
+import path from 'node:path';
 
 // Wir definieren hier den Pfad zur Speicherdatei, damit wir ihn wiederverwenden können.
+// eslint-disable-next-line unicorn/prefer-module
 export const STORAGE_STATE = path.join(__dirname, 'playwright/.auth/user.json');
 
 export default defineConfig({
