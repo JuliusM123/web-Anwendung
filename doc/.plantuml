@@ -1,0 +1,14 @@
+@startuml Sequenzdiagramm
+actor Benutzer
+
+boundary SucheComponent
+boundary BuchGetController
+control BuchReadService
+database buch
+
+Benutzer -> SucheComponent : klickt auf "Suchen"
+SucheComponent -> BuchGetController : GET / suchen()
+BuchGetController -> BuchReadService : get()
+BuchReadService -> buch: [TypeORM]
+
+@enduml
