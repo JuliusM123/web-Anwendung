@@ -2,7 +2,6 @@ import { type Page, type Locator, expect } from '@playwright/test';
 
 /**
  * Page Object für die Login-Seite (/login).
- * Kapselt alle Locators und Aktionen, die auf dieser Seite möglich sind.
  */
 export class LoginPage {
     readonly page: Page;

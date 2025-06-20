@@ -43,7 +43,7 @@ export class AnlegenPage {
     }
 
     /**
-     * Füllt das gesamte Formular aus mit den übergebenen Daten.
+     * Füllt das gesamte Formular aus mit den übergebenen Datensätzen.
      */
     async createBook(data: BookData) {
         await this.titelInput.fill(data.titel);

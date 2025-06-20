@@ -1,5 +1,4 @@
-// Import aus der zentralen Fixture-Datei
-import { test, expect } from './user-journey.fixture'; // Annahme: die Fixture-Datei heisst poms.fixture.ts
+import { test, expect } from './user-journey.fixture';
 
 test.describe('Login-Seite (isoliert)', () => {
     test('sollte einen Benutzer erfolgreich einloggen', async ({

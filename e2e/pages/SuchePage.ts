@@ -1,7 +1,7 @@
 import { type Page, type Locator } from '@playwright/test';
 
 /**
- * Page Object für die Seite "Suchen".
+ * Page Object für die Seite Suchen (/suchen).
  */
 export class SuchePage {
     readonly page: Page;
