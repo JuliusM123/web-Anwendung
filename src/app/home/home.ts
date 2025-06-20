@@ -9,10 +9,10 @@ import { TimeleftComponent } from './timeleft/timeleft';
  */
 @Component({
     selector: 'app-home',
-    standalone: true, // Markiert die Komponente als eigenständig.
-    imports: [TimeleftComponent], // Importiert die benötigte `TimeleftComponent`.
-    templateUrl: './home.html', // Verweist auf die HTML-Template-Datei.
-    styleUrl: './home.css', // Verweist auf die CSS-Styling-Datei.
-    changeDetection: ChangeDetectionStrategy.OnPush, // Optimiert die Änderungserkennung.
+    standalone: true,
+    imports: [TimeleftComponent],
+    templateUrl: './home.html',
+    styleUrl: './home.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {}

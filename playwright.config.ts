@@ -1,7 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import path from 'node:path';
 
-// Wir definieren hier den Pfad zur Speicherdatei, damit wir ihn wiederverwenden können.
 // eslint-disable-next-line unicorn/prefer-module
 export const STORAGE_STATE = path.join(__dirname, 'playwright/.auth/user.json');
 
@@ -16,8 +15,8 @@ export default defineConfig({
     use: {
         baseURL: 'https://localhost:4200',
         ignoreHTTPSErrors: true,
-        trace: 'on', // 'on' ist am besten zum Debuggen
-        video: 'retain-on-failure',
+        trace: 'on',
+        video: 'on',
     },
 
     projects: [
@@ -32,7 +31,6 @@ export default defineConfig({
             name: 'chromium',
             use: {
                 ...devices['Desktop Chrome'],
-                // Lade den gespeicherten Zustand vor jedem Test in diesem Projekt.
                 storageState: STORAGE_STATE,
             },
             dependencies: ['setup'],

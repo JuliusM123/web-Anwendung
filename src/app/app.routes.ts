@@ -8,9 +8,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found';
 /**
  * @constant routes
  * @description
- * Defines the application's routes.
- * Includes paths for home, search, create (anlegen), login, and a fallback for page not found.
- * The default route redirects to 'home'.
+ * Definiert die Routes.
+ * Beinhaltet Pfade für home, suche, login und eine Seite, falls man auf einen ungültigen Pfad zugreifen möchte.
+ * Die Default Route leitet auf die Home-Seite weiter.
  * @type {Routes}
  */
 export const routes: Routes = [

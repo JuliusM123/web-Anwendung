@@ -23,7 +23,6 @@ export default tseslint.config(
             ...tseslint.configs.stylisticTypeChecked,
             ...angular.configs.tsRecommended,
             eslintPluginUnicorn.configs.recommended,
-            // eslintConfigPrettier,
         ],
         languageOptions: {
             parserOptions: {
@@ -69,6 +68,17 @@ export default tseslint.config(
             '@angular-eslint/sort-lifecycle-methods': 'warn',
             '@angular-eslint/no-input-rename': 'error',
             '@angular-eslint/no-output-rename': 'error',
+        },
+    },
+    {
+        files: ['e2e/pages/**/*.ts'],
+        rules: {
+            'unicorn/filename-case': [
+                'error',
+                {
+                    case: 'pascalCase',
+                },
+            ],
         },
     },
     {
