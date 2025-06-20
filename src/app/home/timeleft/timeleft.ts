@@ -22,19 +22,13 @@ export class TimeleftComponent implements OnInit, OnDestroy {
      */
     #targetDate: Date = new Date(2025, 6, 22, 12, 0, 0);
 
-    /** Die verbleibende Anzahl der Tage. */
     protected days = 0;
-    /** Die verbleibende Anzahl der Stunden. */
     protected hours = 0;
-    /** Die verbleibende Anzahl der Minuten. */
     protected minutes = 0;
-    /** Die verbleibende Anzahl der Sekunden. */
     protected seconds = 0;
 
-    /** Gibt an, ob die Zeit abgelaufen ist. */
     protected isTimeUp = false;
 
-    /** Die Nachricht, die angezeigt wird, wenn die Zeit abgelaufen ist. */
     protected timeUpMessage = 'The time is up';
 
     /** Der Interval-Timer, der die Zeitaktualisierung steuert. */
