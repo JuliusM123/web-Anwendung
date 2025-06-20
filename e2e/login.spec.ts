@@ -8,7 +8,7 @@ test.describe('Login-Seite (isoliert)', () => {
 
         const loginPage = new LoginPage(page);
         await loginPage.goto();
-        await loginPage.login('admin', 'p'); // Passwort anpassen
+        await loginPage.login('admin', 'p');
 
         const logoutButton = page.getByRole('button', { name: 'Logout' });
         await expect(logoutButton).toBeVisible();
@@ -19,7 +19,6 @@ test.describe('Login-Seite (isoliert)', () => {
     test('sollte eine Fehlermeldung bei falschen Anmeldedaten anzeigen', async ({
         browser,
     }) => {
-        // Erstelle auch hier einen sauberen Kontext.
         const context = await browser.newContext();
         const page = await context.newPage();
 

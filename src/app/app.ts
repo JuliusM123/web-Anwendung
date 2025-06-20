@@ -9,12 +9,12 @@ import { AuthService } from './service/auth.service';
  * Die `OnPush` Change Detection Strategy wird verwendet, um die Performance zu optimieren.
  */
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush, // Optimiert die Änderungserkennung.
-    selector: 'app-root', // Der CSS-Selektor für diese Komponente.
-    standalone: true, // Markiert die Komponente als eigenständig.
-    imports: [CommonModule, RouterOutlet, RouterLink], // Importiert benötigte Module für Routing und allgemeine Direktiven.
-    templateUrl: './app.html', // Verweist auf die HTML-Template-Datei.
-    styleUrl: './app.css', // Verweist auf die CSS-Styling-Datei.
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-root',
+    standalone: true,
+    imports: [CommonModule, RouterOutlet, RouterLink],
+    templateUrl: './app.html',
+    styleUrl: './app.css',
 })
 export class AppComponent {
     /** Der Titel der Web-Anwendung. */

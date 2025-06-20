@@ -1,8 +1,7 @@
 import { type Page, type Locator } from '@playwright/test';
 
 /**
- * Page Object für die Such-Seite (/suche).
- * Kapselt alle Locators und Aktionen, die auf dieser Seite möglich sind.
+ * Page Object für die Seite "Suchen".
  */
 export class SuchePage {
     readonly page: Page;
@@ -28,7 +27,7 @@ export class SuchePage {
     }
 
     /**
-     * Navigiert direkt zur Such-Seite.
+     * Navigiert zur Suchen-Seite.
      */
     async goto() {
         await this.page.goto('/suchen');
