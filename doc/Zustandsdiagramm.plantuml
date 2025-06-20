@@ -1,0 +1,41 @@
+@startuml
+skinparam state {
+    BackgroundColor White
+    BorderColor Black
+    FontName Arial
+}
+
+state index {
+    [*] --> SucheBuecher : Menüpunkt "Suche"
+
+    state SucheBuecher {
+        [*] --> Suchformular: Suchkriterien eingeben
+        Suchformular --> Waiting : Button "Suchen"
+        Waiting --> SuchergebnisEntscheidung : Suchergebnis eingetroffen
+
+        state Suchergebnis {
+            state ErrorMessage
+            state GefundeneBuecher
+        }
+
+        state SuchergebnisEntscheidung <<choice>>
+        SuchergebnisEntscheidung --> ErrorMessage : kein Buch gefunden
+        SuchergebnisEntscheidung --> GefundeneBuecher : mind. 1 Buch gefunden
+    }
+
+    GefundeneBuecher --> DetailsBuch : Link anklicken
+
+    [*] --> Anlegenformular : Anlegenformular ausfüllen
+    Anlegenformular --> Anlegenergebnisentscheidung : Button "Anlegen"
+
+       state Anlegenergebnis {
+        state ErrorMessage_
+        state Statuscode_201_Created
+       }
+
+        state Anlegenergebnisentscheidung {
+        Anlegenergebnisentscheidung --> ErrorMessage_ : fehlerhafte Daten
+        Anlegenergebnisentscheidung --> Statuscode_201_Created : Buch erfolgreich angelegt
+        }
+    }
+@enduml
