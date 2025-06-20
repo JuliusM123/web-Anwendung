@@ -33,7 +33,7 @@
       name="isbn"
       [(ngModel)]="isbn"
       #isbnRef="ngModel"
-      pattern="^97[89]-\\d{1,5}-\\d{1,7}-\\d{1,7}-[\\dX]$"
+      pattern="^97[89]-\d{1,5}-\d{1,7}-\d{1,7}-[\dX]$"
     />
     @if (isbn && isbnRef.invalid && (isbnRef.dirty || isbnRef.touched)) { @if
     (isbnRef.hasError('pattern')) {
